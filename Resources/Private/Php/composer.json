@@ -1,0 +1,13 @@
+{
+    "name": "kaystrobach/migrations",
+    "require": {
+        "doctrine/migrations": "1.4"
+    },
+    "license": "GPLv2+",
+    "authors": [
+        {
+            "name": "Kay Strobach",
+            "email": "info@kay-strobach.de"
+        }
+    ]
+}
