@@ -81,3 +81,8 @@ class Version20140714184453 extends AbstractMigration {
 	}
 }
 ```
+
+# More information
+
+* http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/
+* http://docs.doctrine-project.org/projects/doctrine-migrations/en/latest/toc.html
