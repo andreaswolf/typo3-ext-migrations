@@ -133,6 +133,9 @@ class DoctrineService
                 $packageKeyColumn = ' ' . str_pad($croppedPackageKey, 24, ' ');
                 $status = $version->isMigrated() ? 'migrated' : 'not migrated';
                 $output .= '    >> ' . $configuration->formatVersion($version->getVersion()) . ' (' . $version->getVersion() . ')' . $packageKeyColumn . str_repeat(' ', 4) . $status . PHP_EOL;
+                if ($version->getMigration()->getDescription() !== '') {
+                    $output .= '       ' . $version->getMigration()->getDescription() . PHP_EOL;
+                }
             }
         }
 
