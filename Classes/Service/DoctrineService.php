@@ -117,8 +117,8 @@ class DoctrineService
             'Migrations Target Directory'  => $configuration->getMigrationsDirectory(),
             'Current Version'       => $currentVersionFormatted,
             'Latest Version'        => $latestVersionFormatted,
-            'Executed Migrations'   => $executedMigrations,
             'Available Migrations'  => $availableMigrations,
+            'Executed Migrations'   => $executedMigrations,
             'New Migrations'        => $newMigrations
         );
         foreach ($info as $name => $value) {
