@@ -4,6 +4,7 @@ namespace KayStrobach\Migrations\Service;
 
 
 use Doctrine\DBAL\Migrations\Version;
+use Symfony\Component\Console\Formatter\OutputFormatter;
 use TYPO3\CMS\Core\Package\PackageInterface;
 use TYPO3\Flow\Utility\Files;
 
@@ -44,6 +45,8 @@ class DoctrineService
         $that = $this;
         $outputWriter = new \Doctrine\DBAL\Migrations\OutputWriter(
             function ($message) use ($that) {
+                $outputFormatter = new OutputFormatter(true);
+                echo $outputFormatter->format($message);
                 $that->output[] = $message;
             }
         );
