@@ -11,6 +11,10 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class DiffCommand extends \Doctrine\Migrations\Tools\Console\Command\DiffCommand
 {
+    public function __construct($_)
+    {
+        parent::__construct();
+    }
 
     protected function configure(): void
     {
