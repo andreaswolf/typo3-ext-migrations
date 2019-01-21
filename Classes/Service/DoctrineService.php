@@ -21,17 +21,11 @@ class DoctrineService
     protected $packageManager;
 
     /**
-     * @var \Doctrine\DBAL\Configuration
-     */
-    protected $config;
-
-    /**
      * DoctrineService constructor.
      */
     public function __construct()
     {
         $this->packageManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\Package\PackageManager');
-        $this->config = new \Doctrine\DBAL\Configuration();
     }
 
     /**
