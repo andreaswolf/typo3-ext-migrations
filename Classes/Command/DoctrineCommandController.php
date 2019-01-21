@@ -18,8 +18,6 @@ class DoctrineCommandController extends CommandController
      */
     public function __construct()
     {
-        require_once __DIR__ . '/../../Resources/Private/Php/vendor/autoload.php';
-
         $this->doctrineService = GeneralUtility::makeInstance(
             DoctrineService::class
         );
