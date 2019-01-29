@@ -3,7 +3,6 @@
 namespace KayStrobach\Migrations\Service;
 
 
-use Doctrine\Migrations\Version\Version;
 use Symfony\Component\Console\Formatter\OutputFormatter;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Package\PackageInterface;
