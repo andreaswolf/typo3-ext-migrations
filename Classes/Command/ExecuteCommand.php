@@ -28,6 +28,9 @@ class ExecuteCommand extends \Doctrine\Migrations\Tools\Console\Command\ExecuteC
     {
         $doctrineService = GeneralUtility::makeInstance(DoctrineService::class);
 
+        $dryRun         = (bool) $input->getOption('dry-run');
+        $doctrineService->setDryRun($dryRun);
+
         $connectionName = $input->getOption('connection') ?? 'Default';
         $this->configuration = $doctrineService->getMigrationConfiguration($connectionName);
 

@@ -5,7 +5,9 @@ namespace KayStrobach\Migrations\Migration;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
+use KayStrobach\Migrations\DataHandling\DataHandler as DryRunDataHandler;
 use KayStrobach\Migrations\Service\DoctrineMigrationCoordinator;
+use KayStrobach\Migrations\Service\DoctrineService;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -65,7 +67,12 @@ abstract class DataHandlerEnabledMigration extends AbstractMigration
     private function createDataHandlerInstance(array $dataMap = [], array $commandMap = []): DataHandler
     {
         $backendUser = $this->createMockCliUser();
-        $dataHandler = GeneralUtility::makeInstance(DataHandler::class);
+        $doctrineService = GeneralUtility::makeInstance(DoctrineService::class);
+        if ($doctrineService->isDryRun()) {
+            $dataHandler = GeneralUtility::makeInstance(DryRunDataHandler::class);
+        } else {
+            $dataHandler = GeneralUtility::makeInstance(DataHandler::class);
+        }
 
         $dataHandler->start($dataMap, $commandMap, $backendUser);
 

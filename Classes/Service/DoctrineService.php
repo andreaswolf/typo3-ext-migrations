@@ -6,9 +6,10 @@ namespace KayStrobach\Migrations\Service;
 use Symfony\Component\Console\Formatter\OutputFormatter;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Package\PackageInterface;
+use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-class DoctrineService
+class DoctrineService implements SingletonInterface
 {
     /**
      * @var
@@ -19,6 +20,9 @@ class DoctrineService
      * @var \TYPO3\CMS\Core\Package\PackageManager
      */
     protected $packageManager;
+
+    /** @var bool */
+    private $dryRun = false;
 
     /**
      * DoctrineService constructor.
@@ -106,5 +110,15 @@ class DoctrineService
         }
 
         return [null, null];
+    }
+
+    public function setDryRun(bool $dryRun)
+    {
+        $this->dryRun = $dryRun;
+    }
+
+    public function isDryRun()
+    {
+        return $this->dryRun;
     }
 }
