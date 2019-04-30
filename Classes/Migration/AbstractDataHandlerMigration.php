@@ -17,6 +17,20 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 abstract class AbstractDataHandlerMigration extends AbstractMigration
 {
+    /**
+     * Static data map for the DataHandler
+     *
+     * @var array
+     */
+    protected $dataMap = [];
+
+    /**
+     * Static command map for the DataHandler
+     *
+     * @var array
+     */
+    protected $commandMap = [];
+
     public function preUp(Schema $schema): void
     {
         parent::preUp($schema);
@@ -24,11 +38,16 @@ abstract class AbstractDataHandlerMigration extends AbstractMigration
         $this->setCurrentMigrationVersion();
     }
 
+    /**
+     * Run static data/command map
+     *
+     * This method should be overwritten if more complex logic is required
+     *
+     * @param Schema $schema
+     */
     public function up(Schema $schema): void
     {
-        $dataMap = [];
-
-        $dataHandler = $this->getDataHandler($dataMap, []);
+        $dataHandler = $this->getDataHandler($this->dataMap, $this->commandMap);
         $dataHandler->process_datamap();
     }
 
