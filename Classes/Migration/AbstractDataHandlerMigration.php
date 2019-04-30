@@ -30,14 +30,6 @@ abstract class AbstractDataHandlerMigration extends AbstractMigration
      * @var array
      */
     protected $commandMap = [];
-
-    public function preUp(Schema $schema): void
-    {
-        parent::preUp($schema);
-
-        $this->setCurrentMigrationVersion();
-    }
-
     /**
      * Run static data/command map
      *
@@ -51,19 +43,19 @@ abstract class AbstractDataHandlerMigration extends AbstractMigration
         $dataHandler->process_datamap();
     }
 
+    public function preUp(Schema $schema): void
+    {
+        parent::preUp($schema);
+
+        $this->setCurrentMigrationVersion();
+    }
+
+
     public function postUp(Schema $schema): void
     {
         $this->getMigrationCoordinator()->resetCurrentVersion();
 
         parent::postUp($schema);
-    }
-
-    /**
-     * @return DoctrineMigrationCoordinator
-     */
-    private function getMigrationCoordinator()
-    {
-        return GeneralUtility::makeInstance(DoctrineMigrationCoordinator::class);
     }
 
     /**
@@ -84,6 +76,14 @@ abstract class AbstractDataHandlerMigration extends AbstractMigration
         $dataHandler->start($dataMap, $commandMap);
 
         return $dataHandler;
+    }
+
+    /**
+     * @return DoctrineMigrationCoordinator
+     */
+    private function getMigrationCoordinator()
+    {
+        return GeneralUtility::makeInstance(DoctrineMigrationCoordinator::class);
     }
 
     private function setCurrentMigrationVersion(): void
