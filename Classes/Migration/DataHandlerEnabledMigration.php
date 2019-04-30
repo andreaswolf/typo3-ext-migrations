@@ -14,9 +14,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 abstract class DataHandlerEnabledMigration extends AbstractMigration
 {
-    /** @var BackendUserAuthentication */
-    protected $backendUser;
-
     public function preUp(Schema $schema): void
     {
         parent::preUp($schema);
@@ -48,33 +45,21 @@ abstract class DataHandlerEnabledMigration extends AbstractMigration
     }
 
     /**
-     * @return BackendUserAuthentication
-     */
-    protected function createMockCliUser(): BackendUserAuthentication
-    {
-        $backendUser = GeneralUtility::makeInstance(BackendUserAuthentication::class);
-        $backendUser->uc = [];
-        $backendUser->user = ['uid' => 999999, 'username' => '_cli_migration', 'admin' => 1];
-        $backendUser->workspace = 0;
-        return $backendUser;
-    }
-
-    /**
      * Creates a DataHandler instance with the given data and command maps.
      *
      * @return DataHandler
      */
     private function createDataHandlerInstance(array $dataMap = [], array $commandMap = []): DataHandler
     {
-        $backendUser = $this->createMockCliUser();
         $doctrineService = GeneralUtility::makeInstance(DoctrineService::class);
+
         if ($doctrineService->isDryRun()) {
             $dataHandler = GeneralUtility::makeInstance(DryRunDataHandler::class);
         } else {
             $dataHandler = GeneralUtility::makeInstance(DataHandler::class);
         }
 
-        $dataHandler->start($dataMap, $commandMap, $backendUser);
+        $dataHandler->start($dataMap, $commandMap);
 
         return $dataHandler;
     }
