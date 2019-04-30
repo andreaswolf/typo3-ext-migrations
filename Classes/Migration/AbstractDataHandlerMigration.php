@@ -47,7 +47,10 @@ abstract class AbstractDataHandlerMigration extends AbstractMigration
     {
         parent::preUp($schema);
 
-        $this->setCurrentMigrationVersion();
+        $reflectionClass = new \ReflectionClass($this);
+        $version = str_replace('Version', '', $reflectionClass->getShortName());
+
+        $this->getMigrationCoordinator()->setCurrentVersion($version);
     }
 
 
@@ -84,13 +87,5 @@ abstract class AbstractDataHandlerMigration extends AbstractMigration
     private function getMigrationCoordinator()
     {
         return GeneralUtility::makeInstance(DoctrineMigrationCoordinator::class);
-    }
-
-    private function setCurrentMigrationVersion(): void
-    {
-        $migrationCoordinator = $this->getMigrationCoordinator();
-        $reflect = new \ReflectionClass($this);
-        $version = str_replace('Version', '', $reflect->getShortName());
-        $migrationCoordinator->setCurrentVersion($version);
     }
 }
