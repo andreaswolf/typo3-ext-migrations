@@ -71,11 +71,12 @@ abstract class AbstractDataHandlerMigration extends AbstractMigration
         $doctrineService = GeneralUtility::makeInstance(DoctrineService::class);
 
         if ($doctrineService->isDryRun()) {
-            $dataHandler = GeneralUtility::makeInstance(DryRunDataHandler::class);
+            $dataHandlerClass = DryRunDataHandler::class;
         } else {
-            $dataHandler = GeneralUtility::makeInstance(DataHandler::class);
+            $dataHandlerClass = DataHandler::class;
         }
 
+        $dataHandler = GeneralUtility::makeInstance($dataHandlerClass);
         $dataHandler->start($dataMap, $commandMap);
 
         return $dataHandler;
