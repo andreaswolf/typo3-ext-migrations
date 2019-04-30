@@ -28,7 +28,7 @@ abstract class AbstractDataHandlerMigration extends AbstractMigration
     {
         $dataMap = [];
 
-        $dataHandler = $this->createDataHandlerInstance($dataMap, []);
+        $dataHandler = $this->getDataHandler($dataMap, []);
         $dataHandler->process_datamap();
     }
 
@@ -52,7 +52,7 @@ abstract class AbstractDataHandlerMigration extends AbstractMigration
      *
      * @return DataHandler
      */
-    private function createDataHandlerInstance(array $dataMap = [], array $commandMap = []): DataHandler
+    protected function getDataHandler(array $dataMap = [], array $commandMap = []): DataHandler
     {
         $doctrineService = GeneralUtility::makeInstance(DoctrineService::class);
 
