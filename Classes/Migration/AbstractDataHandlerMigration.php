@@ -12,7 +12,10 @@ use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-abstract class DataHandlerEnabledMigration extends AbstractMigration
+/**
+ * Base class for migrations using the TYPO3 DataHandler
+ */
+abstract class AbstractDataHandlerMigration extends AbstractMigration
 {
     public function preUp(Schema $schema): void
     {
