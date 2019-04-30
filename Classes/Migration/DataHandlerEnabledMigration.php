@@ -5,7 +5,7 @@ namespace KayStrobach\Migrations\Migration;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
-use KayStrobach\Migrations\DataHandling\DataHandler as DryRunDataHandler;
+use KayStrobach\Migrations\DataHandling\DryRunDataHandler;
 use KayStrobach\Migrations\Service\DoctrineMigrationCoordinator;
 use KayStrobach\Migrations\Service\DoctrineService;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;

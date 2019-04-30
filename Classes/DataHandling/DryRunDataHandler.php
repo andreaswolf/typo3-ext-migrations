@@ -3,7 +3,9 @@ declare(strict_types = 1);
 
 namespace KayStrobach\Migrations\DataHandling;
 
-class DataHandler extends \TYPO3\CMS\Core\DataHandling\DataHandler
+use TYPO3\CMS\Core\DataHandling\DataHandler;
+
+class DryRunDataHandler extends DataHandler
 {
     public function process_cmdmap()
     {
