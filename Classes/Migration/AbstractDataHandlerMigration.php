@@ -52,6 +52,13 @@ abstract class AbstractDataHandlerMigration extends AbstractMigration
         }
     }
 
+    /**
+     * @param Schema $schema
+     */
+    public function down(Schema $schema): void
+    {
+    }
+
     public function preUp(Schema $schema): void
     {
         parent::preUp($schema);
