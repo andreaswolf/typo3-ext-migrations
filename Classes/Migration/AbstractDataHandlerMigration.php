@@ -9,6 +9,7 @@ use KayStrobach\Migrations\DataHandling\DryRunDataHandler;
 use KayStrobach\Migrations\Service\DoctrineMigrationCoordinator;
 use KayStrobach\Migrations\Service\DoctrineService;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
+use TYPO3\CMS\Core\Core\Bootstrap;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -67,6 +68,8 @@ abstract class AbstractDataHandlerMigration extends AbstractMigration
         $version = str_replace('Version', '', $reflectionClass->getShortName());
 
         $this->getMigrationCoordinator()->setCurrentVersion($version);
+
+        Bootstrap::initializeBackendAuthentication();
     }
 
 
@@ -75,6 +78,11 @@ abstract class AbstractDataHandlerMigration extends AbstractMigration
         $this->getMigrationCoordinator()->resetCurrentVersion();
 
         parent::postUp($schema);
+    }
+
+    public function preDown(Schema $schema) : void
+    {
+        Bootstrap::initializeBackendAuthentication();
     }
 
     /**
