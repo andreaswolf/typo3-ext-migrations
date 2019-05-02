@@ -30,6 +30,7 @@ abstract class AbstractDataHandlerMigration extends AbstractMigration
      * @var array
      */
     protected $commandMap = [];
+
     /**
      * Run static data/command map
      *
@@ -40,7 +41,15 @@ abstract class AbstractDataHandlerMigration extends AbstractMigration
     public function up(Schema $schema): void
     {
         $dataHandler = $this->getDataHandler($this->dataMap, $this->commandMap);
-        $dataHandler->process_datamap();
+        $success = $dataHandler->process_datamap();
+
+        if ($success === false) {
+            foreach ($dataHandler->errorLog as $error) {
+                $this->outputWriter->write($error);
+            }
+
+            throw new \RuntimeException('DataHandler execution failed, see errors above', 1556788267);
+        }
     }
 
     public function preUp(Schema $schema): void
