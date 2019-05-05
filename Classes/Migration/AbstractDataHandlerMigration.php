@@ -44,6 +44,7 @@ abstract class AbstractDataHandlerMigration extends AbstractMigration
         $dataHandler = $this->getDataHandler($this->dataMap, $this->commandMap);
 
         $dataHandler->process_datamap();
+        $dataHandler->process_cmdmap();
 
         if (count($dataHandler->errorLog) > 0) {
             foreach ($dataHandler->errorLog as $error) {
