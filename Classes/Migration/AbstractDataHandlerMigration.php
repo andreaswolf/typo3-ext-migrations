@@ -5,6 +5,8 @@ namespace KayStrobach\Migrations\Migration;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
+use Doctrine\Migrations\OutputWriter;
+use Doctrine\Migrations\Version\Version;
 use KayStrobach\Migrations\DataHandling\DryRunDataHandler;
 use KayStrobach\Migrations\Service\DoctrineMigrationCoordinator;
 use KayStrobach\Migrations\Service\DoctrineService;
@@ -31,6 +33,18 @@ abstract class AbstractDataHandlerMigration extends AbstractMigration
      * @var array
      */
     protected $commandMap = [];
+
+    /** @var OutputWriter */
+    protected $outputWriter;
+
+
+    public function __construct(Version $version)
+    {
+        parent::__construct($version);
+
+        $config = $version->getConfiguration();
+        $this->outputWriter = $config->getOutputWriter();
+    }
 
     /**
      * Run static data/command map
