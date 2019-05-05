@@ -62,7 +62,11 @@ abstract class AbstractDataHandlerMigration extends AbstractMigration
 
         if (count($dataHandler->errorLog) > 0) {
             foreach ($dataHandler->errorLog as $error) {
-                $this->outputWriter->write($error);
+                $this->outputWriter->write(sprintf(
+                    '<error>Error during %s: %s</error>',
+                    $this->version->getVersion(),
+                    $error
+                ));
             }
 
             throw new \RuntimeException('DataHandler execution failed, see errors above', 1556788267);
