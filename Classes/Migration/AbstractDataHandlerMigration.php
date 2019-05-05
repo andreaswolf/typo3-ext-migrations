@@ -42,9 +42,10 @@ abstract class AbstractDataHandlerMigration extends AbstractMigration
     public function up(Schema $schema): void
     {
         $dataHandler = $this->getDataHandler($this->dataMap, $this->commandMap);
-        $success = $dataHandler->process_datamap();
 
-        if ($success === false) {
+        $dataHandler->process_datamap();
+
+        if (count($dataHandler->errorLog) > 0) {
             foreach ($dataHandler->errorLog as $error) {
                 $this->outputWriter->write($error);
             }
