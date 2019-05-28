@@ -1,23 +1,18 @@
 # Migrate with doctrine migrations
 
-__It's strongly recommend to use typo3_console!__
+__It's strongly recommend to use the "typo3" CLI binary!__
 
-Otherwise you can use the TYPO3 built in `cli`.
+To get the status of your migration you can run:
 
-```
-typo3/cli_dispatch.phpsh extbase doctrine:migrate
-```
+    <path-to-bin>/typo3 migrations:status
 
-to get the status of your migration you can run:
+To execute all pending migrations you can run:
 
-```
-typo3/cli_dispatch.phpsh extbase doctrine:status
-```
+    <path-to-bin>/typo3 migrations:migrate
 
-this will give you an output like that:
+This will give you an output like this:
 
 ```
-
  == Configuration
     >> Name:                                               Doctrine Database Migrations
     >> Database Driver:                                    pdo_mysql
@@ -34,30 +29,29 @@ this will give you an output like that:
 
  == Migration Versions
     >> 2014-07-14 18:44:53 (20140714184453) migrations                  not migrated
-
 ```
 
 This extension uses `doctrine/migrations` to migrate the database tables.
 
-# own migration
+# Own migration
 
 Create a folder called `Migrations\Mysql` in your extension and place a file like this in it.
-Then you should see it with the status command.
+Then you should see it with the `migrations:status` command.
  
 ```php
 <?php
 namespace KayStrobach\Migrations\Persistence\Doctrine\Migrations;
 
-use Doctrine\DBAL\Migrations\AbstractMigration,
-	Doctrine\DBAL\Schema\Schema;
+use Doctrine\DBAL\Migrations\AbstractMigration;
+use Doctrine\DBAL\Schema\Schema;
 
 /**
  * Auto-generated Migration: Please modify to your need!
  *
  * @SuppressWarnings(PHPMD)
  */
-class Version20140714184453 extends AbstractMigration {
-
+class Version20140714184453 extends AbstractMigration
+{
 	/**
 	 * @param Schema $schema
 	 * @return void
@@ -79,6 +73,53 @@ class Version20140714184453 extends AbstractMigration {
 
         $this->addSql("Drop Table test");
 	}
+}
+```
+
+If you want to perform migrations using the TYPO3 `DataHandler` you can extend
+the `AbstractDataHandlerMigration` instead. The most basic version only fills
+the `$dataMap` or `$commandMap` property:
+
+```php
+<?php
+namespace KayStrobach\Migrations\Persistence\Doctrine\Migrations;
+
+use KayStrobach\Migrations\Migration\AbstractDataHandlerMigration;
+
+class Version20190528172200 extends AbstractDataHandlerMigration
+{
+    /**
+     * @var array
+     */
+    protected $dataMap = [
+        'pages' => [
+            'NEW123' => [
+                'title' => 'Test',
+            ],
+        ],
+    ];
+}
+```
+
+For more advanced cases you can override the `preUp()` method to fill
+the `$dataMap` or `$commandMap`:
+
+```php
+<?php
+namespace KayStrobach\Migrations\Persistence\Doctrine\Migrations;
+
+use Doctrine\DBAL\Schema\Schema;
+use KayStrobach\Migrations\Migration\AbstractDataHandlerMigration;
+
+class Version20190528172400 extends AbstractDataHandlerMigration
+{
+    public function preUp(Schema $schema): void
+    {
+        parent::preUp($schema);
+        
+        // Perform logic to fill $dataMap
+        $this->dataMap = ...;
+    }
 }
 ```
 
