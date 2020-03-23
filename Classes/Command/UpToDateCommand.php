@@ -9,8 +9,10 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-class UpToDateCommand extends \Doctrine\Migrations\Tools\Console\Command\StatusCommand
+class UpToDateCommand extends \Doctrine\Migrations\Tools\Console\Command\UpToDateCommand
 {
+    /** @var string */
+    protected static $defaultName = 'migrations:up-to-date';
 
     protected function configure(): void
     {

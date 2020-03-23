@@ -9,8 +9,10 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-class RollupCommand extends \Doctrine\Migrations\Tools\Console\Command\StatusCommand
+class RollupCommand extends \Doctrine\Migrations\Tools\Console\Command\RollupCommand
 {
+    /** @var string */
+    protected static $defaultName = 'migrations:rollup';
 
     protected function configure(): void
     {

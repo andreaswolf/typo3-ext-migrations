@@ -9,8 +9,10 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-class VersionCommand extends \Doctrine\Migrations\Tools\Console\Command\StatusCommand
+class VersionCommand extends \Doctrine\Migrations\Tools\Console\Command\VersionCommand
 {
+    /** @var string */
+    protected static $defaultName = 'migrations:version';
 
     protected function configure(): void
     {
