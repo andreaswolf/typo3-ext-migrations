@@ -1,31 +1,31 @@
 <?php
 
 return [
-    'doctrine_diff' => [
+    'migrations:diff' => [
         'class' => \KayStrobach\Migrations\Command\DiffCommand::class,
         'schedulable' => false,
     ],
-    'doctrine_execute' => [
+    'migrations:execute' => [
         'class' => \KayStrobach\Migrations\Command\ExecuteCommand::class,
         'schedulable' => false,
     ],
-    'doctrine_migrate' => [
+    'migrations:migrate' => [
         'class' => \KayStrobach\Migrations\Command\MigrateCommand::class,
         'schedulable' => false,
     ],
-    'doctrine_rollup' => [
+    'migrations:rollup' => [
         'class' => \KayStrobach\Migrations\Command\RollupCommand::class,
         'schedulable' => false,
     ],
-    'doctrine_uptodate' => [
+    'migrations:uptodate' => [
         'class' => \KayStrobach\Migrations\Command\UpToDateCommand::class,
         'schedulable' => false,
     ],
-    'doctrine_status' => [
+    'migrations:status' => [
         'class' => \KayStrobach\Migrations\Command\StatusCommand::class,
         'schedulable' => false,
     ],
-    'doctrine_version' => [
+    'migrations:version' => [
         'class' => \KayStrobach\Migrations\Command\VersionCommand::class,
         'schedulable' => false,
     ],
