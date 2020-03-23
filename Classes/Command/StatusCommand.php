@@ -11,6 +11,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class StatusCommand extends \Doctrine\Migrations\Tools\Console\Command\StatusCommand
 {
+    /** @var string */
+    protected static $defaultName = 'migrations:status';
 
     protected function configure(): void
     {

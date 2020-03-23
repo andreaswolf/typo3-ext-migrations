@@ -11,6 +11,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class MigrateCommand extends \Doctrine\Migrations\Tools\Console\Command\MigrateCommand
 {
+    /** @var string */
+    protected static $defaultName = 'migrations:migrate';
 
     protected function configure(): void
     {

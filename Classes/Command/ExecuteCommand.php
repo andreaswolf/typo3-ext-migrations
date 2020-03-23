@@ -11,6 +11,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class ExecuteCommand extends \Doctrine\Migrations\Tools\Console\Command\ExecuteCommand
 {
+    /** @var string */
+    protected static $defaultName = 'migrations:execute';
 
     protected function configure(): void
     {

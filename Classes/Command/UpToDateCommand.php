@@ -11,6 +11,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class UpToDateCommand extends \Doctrine\Migrations\Tools\Console\Command\StatusCommand
 {
+    /** @var string */
+    protected static $defaultName = 'migrations:up-to-date';
 
     protected function configure(): void
     {

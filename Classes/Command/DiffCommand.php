@@ -11,6 +11,9 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class DiffCommand extends \Doctrine\Migrations\Tools\Console\Command\DiffCommand
 {
+    /** @var string */
+    protected static $defaultName = 'migrations:diff';
+
     public function __construct($_)
     {
         parent::__construct();
