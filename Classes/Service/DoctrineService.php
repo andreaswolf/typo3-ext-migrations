@@ -54,8 +54,9 @@ class DoctrineService implements SingletonInterface
 
         $configuration = new \Doctrine\Migrations\Configuration\Configuration($connection, $outputWriter);
         $configuration->setMigrationsNamespace('KayStrobach\Migrations\Persistence\Doctrine\Migrations');
-        GeneralUtility::mkdir_deep(PATH_site . '/fileadmin/Migrations');
-        $configuration->setMigrationsDirectory(PATH_site . '/fileadmin/Migrations');
+        $publicPath = class_exists('\\TYPO3\\CMS\\Core\\Core\\Environment') ? \TYPO3\CMS\Core\Core\Environment::getPublicPath() : PATH_site;
+        GeneralUtility::mkdir_deep($publicPath . '/fileadmin/Migrations');
+        $configuration->setMigrationsDirectory($publicPath . '/fileadmin/Migrations');
         $configuration->setMigrationsTableName('doctrine_migrationstatus');
 
         $configuration->createMigrationTable();
