@@ -6,6 +6,8 @@ namespace KayStrobach\Migrations\Service;
 use Symfony\Component\Console\Formatter\OutputFormatter;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Package\PackageInterface;
+use TYPO3\CMS\Core\Package\PackageManager;
+use TYPO3\CMS\Core\Service\DependencyOrderingService;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -29,7 +31,8 @@ class DoctrineService implements SingletonInterface
      */
     public function __construct()
     {
-        $this->packageManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\Package\PackageManager');
+        $dependencyOrderingService = GeneralUtility::makeInstance(DependencyOrderingService::class);
+        $this->packageManager = GeneralUtility::makeInstance(PackageManager::class, $dependencyOrderingService);
     }
 
     /**
