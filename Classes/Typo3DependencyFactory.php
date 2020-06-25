@@ -4,6 +4,7 @@ namespace KayStrobach\Migrations;
 
 use Doctrine\Migrations\Configuration\Connection\ExistingConnection;
 use Doctrine\Migrations\DependencyFactory;
+use KayStrobach\Migrations\EventListener\PrintMigrationVersionListener;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Log\LogManager;
 
@@ -22,10 +23,13 @@ class Typo3DependencyFactory extends DependencyFactory
         $connection = $connectionPool->getConnectionByName(ConnectionPool::DEFAULT_CONNECTION_NAME);
         $connectionLoader = new ExistingConnection($connection);
 
-        return DependencyFactory::fromConnection(
+        $dependencyFactory = DependencyFactory::fromConnection(
             $configurationLoader,
             $connectionLoader,
             $logManager->getLogger()
         );
+        $connection->getEventManager()->addEventSubscriber(new PrintMigrationVersionListener($dependencyFactory));
+
+        return $dependencyFactory;
     }
 }

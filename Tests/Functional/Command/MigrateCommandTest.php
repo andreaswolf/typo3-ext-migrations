@@ -35,6 +35,9 @@ class MigrateCommandTest extends FunctionalTestCase
 
         $commandTester->assertCommandIsSuccessful();
 
+        $output = $commandTester->getDisplay();
+        self::assertStringContainsString('Executing KayStrobach\\Migrations\\TestFixtures\\Migrations\\Mysql\\Version20230804102700', $output);
+
         /** @var \TYPO3\CMS\Core\Database\Connection $connection */
         $connection = $this->get(ConnectionPool::class)
             ->getConnectionForTable(Typo3ConfigurationLoader::MIGRATION_TABLE_NAME);
