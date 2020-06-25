@@ -6,6 +6,8 @@ namespace KayStrobach\Migrations\Service;
 use Symfony\Component\Console\Formatter\OutputFormatter;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Package\PackageInterface;
+use TYPO3\CMS\Core\Package\PackageManager;
+use TYPO3\CMS\Core\Service\DependencyOrderingService;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -29,7 +31,8 @@ class DoctrineService implements SingletonInterface
      */
     public function __construct()
     {
-        $this->packageManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\Package\PackageManager');
+        $dependencyOrderingService = GeneralUtility::makeInstance(DependencyOrderingService::class);
+        $this->packageManager = GeneralUtility::makeInstance(PackageManager::class, $dependencyOrderingService);
     }
 
     /**
@@ -54,8 +57,9 @@ class DoctrineService implements SingletonInterface
 
         $configuration = new \Doctrine\Migrations\Configuration\Configuration($connection, $outputWriter);
         $configuration->setMigrationsNamespace('KayStrobach\Migrations\Persistence\Doctrine\Migrations');
-        GeneralUtility::mkdir_deep(PATH_site . '/fileadmin/Migrations');
-        $configuration->setMigrationsDirectory(PATH_site . '/fileadmin/Migrations');
+        $publicPath = class_exists('\\TYPO3\\CMS\\Core\\Core\\Environment') ? \TYPO3\CMS\Core\Core\Environment::getPublicPath() : PATH_site;
+        GeneralUtility::mkdir_deep($publicPath . '/fileadmin/Migrations');
+        $configuration->setMigrationsDirectory($publicPath . '/fileadmin/Migrations');
         $configuration->setMigrationsTableName('doctrine_migrationstatus');
 
         $configuration->createMigrationTable();
