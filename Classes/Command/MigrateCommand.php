@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace KayStrobach\Migrations\Command;
 
+use Doctrine\Migrations\Event\MigrationsVersionEventArgs;
+use Doctrine\Migrations\Events;
 use KayStrobach\Migrations\Service\DoctrineService;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -35,6 +37,21 @@ class MigrateCommand extends \Doctrine\Migrations\Tools\Console\Command\MigrateC
 
         $connectionName = $input->getOption('connection') ?? 'Default';
         $this->configuration = $doctrineService->getMigrationConfiguration($connectionName);
+
+        $eventManager = $this->configuration->getConnection()->getEventManager();
+        $eventManager->addEventListener(
+            Events::onMigrationsVersionExecuting,
+            new class($output) {
+
+                public function __construct(OutputInterface $output) {
+                    $this->output = $output;
+                }
+
+                public function onMigrationsVersionExecuting (MigrationsVersionEventArgs $args) {
+                    $this->output->writeln(sprintf('Executing %s', $args->getVersion()->getVersion()));
+                }
+            }
+        );
 
         parent::initialize($input, $output);
     }
