@@ -10,6 +10,7 @@ use TYPO3\CMS\Core\Package\PackageManager;
 use TYPO3\CMS\Core\Service\DependencyOrderingService;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 class DoctrineService implements SingletonInterface
 {
@@ -31,8 +32,12 @@ class DoctrineService implements SingletonInterface
      */
     public function __construct()
     {
-        $dependencyOrderingService = GeneralUtility::makeInstance(DependencyOrderingService::class);
-        $this->packageManager = GeneralUtility::makeInstance(PackageManager::class, $dependencyOrderingService);
+        if (VersionNumberUtility::convertVersionNumberToInteger(VersionNumberUtility::getCurrentTypo3Version()) < 100000) {
+            $dependencyOrderingService = GeneralUtility::makeInstance(DependencyOrderingService::class);
+            $this->packageManager = GeneralUtility::makeInstance(PackageManager::class, $dependencyOrderingService);
+        } else {
+            $this->packageManager = GeneralUtility::makeInstance(PackageManager::class);
+        }
     }
 
     /**
