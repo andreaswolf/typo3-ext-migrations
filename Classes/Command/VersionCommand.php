@@ -14,6 +14,14 @@ class VersionCommand extends \Doctrine\Migrations\Tools\Console\Command\VersionC
     /** @var string */
     protected static $defaultName = 'migrations:version';
 
+    private DoctrineService $doctrineService;
+
+    public function __construct(DoctrineService $doctrineService)
+    {
+        $this->doctrineService = $doctrineService;
+        parent::__construct();
+    }
+
     protected function configure(): void
     {
         parent::configure();
@@ -28,10 +36,8 @@ class VersionCommand extends \Doctrine\Migrations\Tools\Console\Command\VersionC
 
     public function initialize(InputInterface $input, OutputInterface $output): void
     {
-        $doctrineService = GeneralUtility::makeInstance(DoctrineService::class);
-
         $connectionName = $input->getOption('connection') ?? 'Default';
-        $this->configuration = $doctrineService->getMigrationConfiguration($connectionName);
+        $this->configuration = $this->doctrineService->getMigrationConfiguration($connectionName);
 
         parent::initialize($input, $output);
     }

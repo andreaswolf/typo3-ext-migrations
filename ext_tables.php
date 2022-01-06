@@ -1,7 +1,7 @@
 <?php
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-    'KayStrobach.' . $_EXTKEY,
+    'KayStrobach.migrations',
     'system',          // Main area
     'mod1',         // Name of the module
     '',             // Position of the module
@@ -11,6 +11,6 @@
     array(          // Additional configuration
         'access'    => 'user,group',
         'icon'      => 'EXT:migrations/ext_icon.gif',
-        'labels'    => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_mod.xml',
+        'labels'    => 'LLL:EXT:migrations/Resources/Private/Language/locallang_mod.xml',
     )
 );

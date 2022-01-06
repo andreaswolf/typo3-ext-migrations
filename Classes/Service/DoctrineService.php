@@ -11,7 +11,7 @@ use TYPO3\CMS\Core\Service\DependencyOrderingService;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-class DoctrineService implements SingletonInterface
+class DoctrineService
 {
     /**
      * @var
@@ -21,7 +21,7 @@ class DoctrineService implements SingletonInterface
     /**
      * @var \TYPO3\CMS\Core\Package\PackageManager
      */
-    protected $packageManager;
+    protected PackageManager $packageManager;
 
     /** @var bool */
     private $dryRun = false;
@@ -29,14 +29,13 @@ class DoctrineService implements SingletonInterface
     /**
      * DoctrineService constructor.
      */
-    public function __construct()
+    public function __construct(PackageManager $packageManager)
     {
-        $dependencyOrderingService = GeneralUtility::makeInstance(DependencyOrderingService::class);
-        $this->packageManager = GeneralUtility::makeInstance(PackageManager::class, $dependencyOrderingService);
+        $this->packageManager = $packageManager;
     }
 
     /**
-     * Return the configuration needed for Migrations.
+     * Return the configurationn needed for Migrations.
      *
      * @param string $connectionName The connection name
      * @return \Doctrine\Migrations\Configuration\Configuration
@@ -76,6 +75,7 @@ class DoctrineService implements SingletonInterface
             $path .= ucfirst($databasePlatformName) . '/';
             // unlike in Composer manifests, the search namespace here must _not_ end with a trailing slash!
             $namespace .= ucfirst($databasePlatformName);
+
             if (is_dir($path)) {
                 $configuration->setMigrationsNamespace($namespace);
 

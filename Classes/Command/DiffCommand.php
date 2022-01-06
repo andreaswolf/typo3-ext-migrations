@@ -13,9 +13,11 @@ class DiffCommand extends \Doctrine\Migrations\Tools\Console\Command\DiffCommand
 {
     /** @var string */
     protected static $defaultName = 'migrations:diff';
+    private DoctrineService $doctrineService;
 
-    public function __construct($_)
+    public function __construct(DoctrineService $doctrineService)
     {
+        $this->doctrineService = $doctrineService;
         parent::__construct();
     }
 
@@ -33,10 +35,8 @@ class DiffCommand extends \Doctrine\Migrations\Tools\Console\Command\DiffCommand
 
     public function initialize(InputInterface $input, OutputInterface $output): void
     {
-        $doctrineService = GeneralUtility::makeInstance(DoctrineService::class);
-
         $connectionName = $input->getOption('connection') ?? 'Default';
-        $this->configuration = $doctrineService->getMigrationConfiguration($connectionName);
+        $this->configuration = $this->doctrineService->getMigrationConfiguration($connectionName);
 
         parent::initialize($input, $output);
     }
