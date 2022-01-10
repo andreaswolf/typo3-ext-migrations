@@ -1,17 +1,17 @@
 <?php
-declare(strict_types = 1);
 
-namespace KayStrobach\Migrations\Hooks;
+declare(strict_types=1);
 
-use KayStrobach\Migrations\Service\DoctrineMigrationCoordinator;
+namespace AndreasWolf\Migrations\Hooks;
+
+use AndreasWolf\Migrations\Service\DoctrineMigrationCoordinator;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class DataHandlerVersionAddHook
 {
-
     /**
      *
-     * @param object $fobj TCEmain object reference
+     * @param object $fObj TCEmain object reference
      * @param string $status The status, 'new' or 'update'
      * @param string $table
      * @param string|int $id The record ID, either a string "NEW..." or the existing record's UID
@@ -30,5 +30,4 @@ class DataHandlerVersionAddHook
             $incomingFieldArray['tx_migrations_version'] = $migrationCoordinator->getCurrentVersion();
         }
     }
-
 }

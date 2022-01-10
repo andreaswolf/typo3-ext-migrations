@@ -1,35 +1,29 @@
 <?php
+
 declare(strict_types=1);
 
-namespace KayStrobach\Migrations\Service;
+namespace AndreasWolf\Migrations\Service;
 
-use TYPO3\CMS\Core\SingletonInterface;
-
-class DoctrineMigrationCoordinator implements SingletonInterface
+final class DoctrineMigrationCoordinator
 {
+    private ?string $currentVersion = null;
 
-    /**
-     * @var ?string
-     */
-    private $currentVersion = null;
-
-
-    public function setCurrentVersion(string $version)
+    public function setCurrentVersion(string $version): void
     {
         $this->currentVersion = $version;
     }
 
-    public function resetCurrentVersion()
+    public function resetCurrentVersion(): void
     {
         $this->currentVersion = null;
     }
 
-    public function getCurrentVersion()
+    public function getCurrentVersion(): ?string
     {
         return $this->currentVersion;
     }
 
-    public function isMigrationBeingExecuted()
+    public function isMigrationBeingExecuted(): bool
     {
         return $this->currentVersion !== null;
     }
@@ -38,5 +32,4 @@ class DoctrineMigrationCoordinator implements SingletonInterface
     {
         return isset($GLOBALS['TCA'][$table]['columns']['tx_migrations_version']);
     }
-
 }

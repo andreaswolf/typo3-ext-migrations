@@ -1,53 +1,63 @@
 services:
-  KayStrobach\Migrations\Service\DoctrineService:
+  AndreasWolf\Migrations\Service\DoctrineService:
     arguments:
       - '@TYPO3\CMS\Core\Package\PackageManager'
+      - '@TYPO3\CMS\Core\Database\ConnectionPool'
+      - '@TYPO3\CMS\Core\Log\LogManager'
 
-  KayStrobach\Migrations\Command\DiffCommand:
+  AndreasWolf\Migrations\Command\DiffCommand:
     arguments:
-      - '@KayStrobach\Migrations\Service\DoctrineService'
+      - '@AndreasWolf\Migrations\Service\DoctrineService'
     tags:
       - name: 'console.command'
         command: 'migrations:diff'
         schedulable: false
-  KayStrobach\Migrations\Command\ExecuteCommand:
+  AndreasWolf\Migrations\Command\GenerateCommand:
     arguments:
-      - '@KayStrobach\Migrations\Service\DoctrineService'
+      - '@AndreasWolf\Migrations\Service\DoctrineService'
+    tags:
+      - name: 'console.command'
+        command: 'migrations:GenerateCommand'
+        schedulable: false
+
+  AndreasWolf\Migrations\Command\ExecuteCommand:
+    arguments:
+      - '@AndreasWolf\Migrations\Service\DoctrineService'
     tags:
       - name: 'console.command'
         command: 'migrations:execute'
         schedulable: false
-  KayStrobach\Migrations\Command\MigrateCommand:
+  AndreasWolf\Migrations\Command\MigrateCommand:
     arguments:
-      - '@KayStrobach\Migrations\Service\DoctrineService'
+      - '@AndreasWolf\Migrations\Service\DoctrineService'
     tags:
       - name: 'console.command'
         command: 'migrations:migrate'
         schedulable: false
-  KayStrobach\Migrations\Command\RollupCommand:
+  AndreasWolf\Migrations\Command\RollupCommand:
     arguments:
-      - '@KayStrobach\Migrations\Service\DoctrineService'
+      - '@AndreasWolf\Migrations\Service\DoctrineService'
     tags:
       - name: 'console.command'
         command: 'migrations:rollup'
         schedulable: false
-  KayStrobach\Migrations\Command\UpToDateCommand:
+  AndreasWolf\Migrations\Command\UpToDateCommand:
     arguments:
-      - '@KayStrobach\Migrations\Service\DoctrineService'
+      - '@AndreasWolf\Migrations\Service\DoctrineService'
     tags:
       - name: 'console.command'
         command: 'migrations:uptodate'
         schedulable: false
-  KayStrobach\Migrations\Command\StatusCommand:
+  AndreasWolf\Migrations\Command\StatusCommand:
     arguments:
-      - '@KayStrobach\Migrations\Service\DoctrineService'
+      - '@AndreasWolf\Migrations\Service\DoctrineService'
     tags:
       - name: 'console.command'
         command: 'migrations:status'
         schedulable: false
-  KayStrobach\Migrations\Command\VersionCommand:
+  AndreasWolf\Migrations\Command\VersionCommand:
     arguments:
-      - '@KayStrobach\Migrations\Service\DoctrineService'
+      - '@AndreasWolf\Migrations\Service\DoctrineService'
     tags:
       - name: 'console.command'
         command: 'migrations:version'

@@ -1,0 +1,22 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Call to an undefined method object\\:\\:getCurrentVersion\\(\\)\\.$#"
+			count: 1
+			path: Classes/Hooks/DataHandlerVersionAddHook.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:isMigrationBeingExecuted\\(\\)\\.$#"
+			count: 1
+			path: Classes/Hooks/DataHandlerVersionAddHook.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:isVersioningEnabledForTable\\(\\)\\.$#"
+			count: 1
+			path: Classes/Hooks/DataHandlerVersionAddHook.php
+
+		-
+			message: "#^Method AndreasWolf\\\\Migrations\\\\Hooks\\\\DataHandlerVersionAddHook\\:\\:processDatamap_postProcessFieldArray\\(\\) has parameter \\$incomingFieldArray with no type specified\\.$#"
+			count: 1
+			path: Classes/Hooks/DataHandlerVersionAddHook.php
+

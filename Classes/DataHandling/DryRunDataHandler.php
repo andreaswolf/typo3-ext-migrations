@@ -1,7 +1,8 @@
 <?php
-declare(strict_types = 1);
 
-namespace KayStrobach\Migrations\DataHandling;
+declare(strict_types=1);
+
+namespace AndreasWolf\Migrations\DataHandling;
 
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 
