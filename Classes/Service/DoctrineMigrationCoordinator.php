@@ -7,29 +7,25 @@ use TYPO3\CMS\Core\SingletonInterface;
 
 class DoctrineMigrationCoordinator implements SingletonInterface
 {
-
-    /**
-     * @var ?string
-     */
-    private $currentVersion = null;
+    private ?string $currentVersion = null;
 
 
-    public function setCurrentVersion(string $version)
+    public function setCurrentVersion(string $version): void
     {
         $this->currentVersion = $version;
     }
 
-    public function resetCurrentVersion()
+    public function resetCurrentVersion(): void
     {
         $this->currentVersion = null;
     }
 
-    public function getCurrentVersion()
+    public function getCurrentVersion(): ?string
     {
         return $this->currentVersion;
     }
 
-    public function isMigrationBeingExecuted()
+    public function isMigrationBeingExecuted(): bool
     {
         return $this->currentVersion !== null;
     }
