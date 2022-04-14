@@ -74,8 +74,6 @@ abstract class AbstractDataHandlerMigration extends AbstractMigration
      * Run static data/command map
      *
      * This method should be overwritten if more complex logic is required
-     *
-     * @param Schema $schema
      */
     public function up(Schema $schema): void
     {
@@ -93,9 +91,6 @@ abstract class AbstractDataHandlerMigration extends AbstractMigration
         }
     }
 
-    /**
-     * @param Schema $schema
-     */
     public function down(Schema $schema): void
     {
     }
@@ -130,8 +125,6 @@ abstract class AbstractDataHandlerMigration extends AbstractMigration
      *
      * @param array<mixed> $dataMap
      * @param array<mixed> $commandMap
-     *
-     * @return DataHandler
      */
     protected function getDataHandler(array $dataMap = [], array $commandMap = []): DataHandler
     {
@@ -144,10 +137,7 @@ abstract class AbstractDataHandlerMigration extends AbstractMigration
         return $dataHandler;
     }
 
-    /**
-     * @return DoctrineMigrationCoordinator
-     */
-    private function getMigrationCoordinator()
+    private function getMigrationCoordinator(): DoctrineMigrationCoordinator
     {
         return GeneralUtility::makeInstance(DoctrineMigrationCoordinator::class);
     }

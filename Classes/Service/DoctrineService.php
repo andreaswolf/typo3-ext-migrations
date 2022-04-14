@@ -126,8 +126,7 @@ class DoctrineService implements LoggerAwareInterface
     }
 
     /**
-     * @param PackageInterface $package
-     * @return array<mixed> [The namespace, the full package directory]
+     * @return array{0: string, 1: string} [The namespace, the full package directory]
      */
     private function getPackageMigrationNamespaceAndDirectory(PackageInterface $package): array
     {
