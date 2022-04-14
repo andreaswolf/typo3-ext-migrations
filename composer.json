@@ -1,21 +1,38 @@
 {
-  "name": "kaystrobach/migrations",
-  "description": "Doctrine migrations integration for TYPO3 CMS",
-  "type": "typo3-cms-extension",
-  "license": "GPLv2+",
-  "authors": [
-    {
-      "name": "Kay Strobach",
-      "email": "info@kay-strobach.de"
-    }
-  ],
-  "require": {
-    "doctrine/migrations": "^2.0",
-    "typo3/cms-core": "^8.7 || ^9.5 || ^10.4"
-  },
-  "autoload": {
-    "psr-4": {
-      "KayStrobach\\Migrations\\": "Classes/"
-    }
-  }
+	"name": "kaystrobach/migrations",
+	"description": "Doctrine migrations integration for TYPO3 CMS",
+	"type": "typo3-cms-extension",
+	"license": "GPLv2+",
+	"authors": [
+		{
+			"name": "Kay Strobach",
+			"email": "info@kay-strobach.de"
+		},
+		{
+			"name": "Andreas Wolf",
+			"email": "dev@a-w.io"
+		},
+		{
+			"name": "Christian Rodriguez Benthake",
+			"email": "git@cben.co"
+		},
+		{
+			"name": "Mark Houben",
+			"email": "markhouben91@gmail.com"
+		}
+	],
+	"require": {
+		"doctrine/migrations": "^2.0",
+		"typo3/cms-core": "^9.5 || ^10.4 || ^11.5"
+	},
+	"autoload": {
+		"psr-4": {
+			"KayStrobach\\Migrations\\": "Classes/"
+		}
+	},
+	"extra": {
+		"typo3/cms": {
+			"extension-key": "migrations"
+		}
+	}
 }
