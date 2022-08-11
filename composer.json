@@ -1,8 +1,8 @@
 {
 	"name": "kaystrobach/migrations",
 	"description": "Doctrine migrations integration for TYPO3 CMS",
-	"type": "typo3-cms-extension",
 	"license": "GPLv2+",
+	"type": "typo3-cms-extension",
 	"authors": [
 		{
 			"name": "Kay Strobach",
@@ -26,12 +26,21 @@
 		"typo3/cms-core": "^9.5 || ^10.4 || ^11.5"
 	},
 	"require-dev": {
-	  "typo3/coding-standards": "^0.5.4"
+		"ergebnis/composer-normalize": "^2.28",
+		"typo3/coding-standards": "^0.5.4"
 	},
 	"autoload": {
 		"psr-4": {
 			"KayStrobach\\Migrations\\": "Classes/"
 		}
+	},
+	"config": {
+		"allow-plugins": {
+			"typo3/cms-composer-installers": true,
+			"typo3/class-alias-loader": true,
+			"ergebnis/composer-normalize": true
+		},
+		"sort-packages": true
 	},
 	"extra": {
 		"typo3/cms": {
@@ -41,11 +50,5 @@
 	"scripts": {
 		"cs:check": "php-cs-fixer fix --config .php-cs-fixer.php -v --dry-run --diff",
 		"cs:fix": "php-cs-fixer fix --config .php-cs-fixer.php -v --diff"
-	},
-	"config": {
-		"allow-plugins": {
-			"typo3/cms-composer-installers": true,
-			"typo3/class-alias-loader": true
-		}
 	}
 }
