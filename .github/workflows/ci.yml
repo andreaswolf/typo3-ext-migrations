@@ -31,9 +31,12 @@ jobs:
       - name: "Install Composer dependencies"
         run: "composer install --no-progress"
       - name: "Run command"
-        run: "composer cs:check"
+        run: "composer ${{ matrix.command }}"
     strategy:
       fail-fast: false
       matrix:
         php-version:
           - "7.4"
+        command:
+          - "cs:check"
+          - "normalize"
