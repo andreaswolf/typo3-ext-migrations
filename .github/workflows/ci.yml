@@ -40,3 +40,4 @@ jobs:
         command:
           - "cs:check"
           - "normalize"
+          - "analyze:php"
