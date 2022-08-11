@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace KayStrobach\Migrations\Service;
 
@@ -8,7 +9,6 @@ use TYPO3\CMS\Core\SingletonInterface;
 class DoctrineMigrationCoordinator implements SingletonInterface
 {
     private ?string $currentVersion = null;
-
 
     public function setCurrentVersion(string $version): void
     {
@@ -34,5 +34,4 @@ class DoctrineMigrationCoordinator implements SingletonInterface
     {
         return isset($GLOBALS['TCA'][$table]['columns']['tx_migrations_version']);
     }
-
 }

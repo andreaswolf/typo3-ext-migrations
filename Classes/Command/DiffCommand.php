@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace KayStrobach\Migrations\Command;
@@ -39,5 +40,4 @@ class DiffCommand extends DoctrineDiffCommand
 
         parent::initialize($input, $output);
     }
-
 }

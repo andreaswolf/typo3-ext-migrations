@@ -25,6 +25,9 @@
 		"doctrine/migrations": "^2.0",
 		"typo3/cms-core": "^9.5 || ^10.4 || ^11.5"
 	},
+	"require-dev": {
+	  "typo3/coding-standards": "^0.5.4"
+	},
 	"autoload": {
 		"psr-4": {
 			"KayStrobach\\Migrations\\": "Classes/"
@@ -34,5 +37,9 @@
 		"typo3/cms": {
 			"extension-key": "migrations"
 		}
+	},
+	"scripts": {
+		"cs:check": "php-cs-fixer fix --config .php-cs-fixer.php -v --dry-run --diff",
+		"cs:fix": "php-cs-fixer fix --config .php-cs-fixer.php -v --diff"
 	}
 }

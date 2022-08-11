@@ -1,17 +1,15 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace KayStrobach\Migrations\Migration;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
-use Doctrine\Migrations\OutputWriter;
 use Doctrine\Migrations\Version\Version;
 use KayStrobach\Migrations\DataHandling\DryRunDataHandler;
 use KayStrobach\Migrations\Service\DoctrineMigrationCoordinator;
 use KayStrobach\Migrations\Service\DoctrineService;
-use Psr\Log\LoggerAwareInterface;
-use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Core\Bootstrap;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
@@ -43,7 +41,6 @@ abstract class AbstractDataHandlerMigration extends AbstractMigration
     private DoctrineMigrationCoordinator $doctrineMigrationCoordinator;
 
     private DoctrineService $doctrineService;
-
 
     public function __construct(Version $version)
     {
@@ -107,7 +104,6 @@ abstract class AbstractDataHandlerMigration extends AbstractMigration
         Bootstrap::initializeBackendAuthentication(true);
     }
 
-
     public function postUp(Schema $schema): void
     {
         $this->getMigrationCoordinator()->resetCurrentVersion();
@@ -115,7 +111,7 @@ abstract class AbstractDataHandlerMigration extends AbstractMigration
         parent::postUp($schema);
     }
 
-    public function preDown(Schema $schema) : void
+    public function preDown(Schema $schema): void
     {
         Bootstrap::initializeBackendAuthentication(true);
     }
