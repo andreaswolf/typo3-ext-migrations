@@ -46,17 +46,8 @@ use Doctrine\DBAL\Exception;
 use Doctrine\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema;
 
-/**
- * @SuppressWarnings(PHPMD)
- */
 class Version20220910184453 extends AbstractMigration
 {
-
-    /**
-     * @param Schema $schema
-     * @return void
-     * @throws Exception
-     */
     public function up(Schema $schema): void
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql');
@@ -65,11 +56,6 @@ class Version20220910184453 extends AbstractMigration
         );
     }
 
-    /**
-     * @param Schema $schema
-     * @return void
-     * @throws Exception
-     */
     public function down(Schema $schema): void
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql');
@@ -135,7 +121,7 @@ class Version20190528172400 extends AbstractDataHandlerMigration
     public function preUp(Schema $schema): void
     {
         parent::preUp($schema);
-        
+
         // Perform logic to fill $dataMap
         $this->dataMap = ...;
     }
