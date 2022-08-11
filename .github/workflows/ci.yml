@@ -1,0 +1,39 @@
+---
+# This GitHub Actions workflow uses the same development tools that are also installed locally
+# via Composer or PHIVE and calls them using the Composer scripts.
+name: CI with Composer scripts
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+jobs:
+  code-quality:
+    name: "Code quality checks"
+    runs-on: ubuntu-22.04
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+      - name: "Install PHP"
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "${{ matrix.php-version }}"
+          coverage: none
+          tools: composer:v2.3
+      - name: "Show Composer version"
+        run: composer --version
+      - name: "Cache dependencies installed with composer"
+        uses: actions/cache@v3
+        with:
+          key: "php${{ matrix.php-version }}-composer-${{ hashFiles('**/composer.json') }}"
+          path: ~/.cache/composer
+          restore-keys: "php${{ matrix.php-version }}-composer-\n"
+      - name: "Install Composer dependencies"
+        run: "composer install --no-progress"
+      - name: "Run command"
+        run: "composer cs:check"
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version:
+          - "7.4"
