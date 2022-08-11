@@ -1,0 +1,86 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Property KayStrobach\\\\Migrations\\\\Command\\\\DiffCommand\\:\\:\\$doctrineService \\(KayStrobach\\\\Migrations\\\\Service\\\\DoctrineService\\) does not accept object\\.$#"
+			count: 1
+			path: Classes/Command/DiffCommand.php
+
+		-
+			message: "#^Property KayStrobach\\\\Migrations\\\\Command\\\\ExecuteCommand\\:\\:\\$doctrineService \\(KayStrobach\\\\Migrations\\\\Service\\\\DoctrineService\\) does not accept object\\.$#"
+			count: 1
+			path: Classes/Command/ExecuteCommand.php
+
+		-
+			message: "#^Property KayStrobach\\\\Migrations\\\\Command\\\\MigrateCommand\\:\\:\\$doctrineService \\(KayStrobach\\\\Migrations\\\\Service\\\\DoctrineService\\) does not accept object\\.$#"
+			count: 1
+			path: Classes/Command/MigrateCommand.php
+
+		-
+			message: "#^Property KayStrobach\\\\Migrations\\\\Command\\\\RollupCommand\\:\\:\\$doctrineService \\(KayStrobach\\\\Migrations\\\\Service\\\\DoctrineService\\) does not accept object\\.$#"
+			count: 1
+			path: Classes/Command/RollupCommand.php
+
+		-
+			message: "#^Property KayStrobach\\\\Migrations\\\\Command\\\\StatusCommand\\:\\:\\$doctrineService \\(KayStrobach\\\\Migrations\\\\Service\\\\DoctrineService\\) does not accept object\\.$#"
+			count: 1
+			path: Classes/Command/StatusCommand.php
+
+		-
+			message: "#^Property KayStrobach\\\\Migrations\\\\Command\\\\UpToDateCommand\\:\\:\\$doctrineService \\(KayStrobach\\\\Migrations\\\\Service\\\\DoctrineService\\) does not accept object\\.$#"
+			count: 1
+			path: Classes/Command/UpToDateCommand.php
+
+		-
+			message: "#^Property KayStrobach\\\\Migrations\\\\Command\\\\VersionCommand\\:\\:\\$doctrineService \\(KayStrobach\\\\Migrations\\\\Service\\\\DoctrineService\\) does not accept object\\.$#"
+			count: 1
+			path: Classes/Command/VersionCommand.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getCurrentVersion\\(\\)\\.$#"
+			count: 1
+			path: Classes/Hooks/DataHandlerVersionAddHook.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:isMigrationBeingExecuted\\(\\)\\.$#"
+			count: 1
+			path: Classes/Hooks/DataHandlerVersionAddHook.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:isVersioningEnabledForTable\\(\\)\\.$#"
+			count: 1
+			path: Classes/Hooks/DataHandlerVersionAddHook.php
+
+		-
+			message: "#^Method KayStrobach\\\\Migrations\\\\Migration\\\\AbstractDataHandlerMigration\\:\\:getMigrationCoordinator\\(\\) should return KayStrobach\\\\Migrations\\\\Service\\\\DoctrineMigrationCoordinator but returns object\\.$#"
+			count: 1
+			path: Classes/Migration/AbstractDataHandlerMigration.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getLogger\\(\\)\\.$#"
+			count: 1
+			path: Classes/Service/DoctrineService.php
+
+		-
+			message: "#^Method KayStrobach\\\\Migrations\\\\Service\\\\DoctrineService\\:\\:getPackageManager\\(\\) should return TYPO3\\\\CMS\\\\Core\\\\Package\\\\PackageManager but returns object\\.$#"
+			count: 1
+			path: Classes/Service/DoctrineService.php
+
+		-
+			message: "#^Method KayStrobach\\\\Migrations\\\\Service\\\\DoctrineService\\:\\:getPackageMigrationNamespaceAndDirectory\\(\\) should return array\\{string, string\\} but returns array\\{null, null\\}\\.$#"
+			count: 1
+			path: Classes/Service/DoctrineService.php
+
+		-
+			message: "#^Property KayStrobach\\\\Migrations\\\\Service\\\\DoctrineService\\:\\:\\$connectionPool \\(TYPO3\\\\CMS\\\\Core\\\\Database\\\\ConnectionPool\\) does not accept object\\.$#"
+			count: 1
+			path: Classes/Service/DoctrineService.php
+
+		-
+			message: "#^Result of \\|\\| is always false\\.$#"
+			count: 1
+			path: Classes/Service/DoctrineService.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between string and null will always evaluate to false\\.$#"
+			count: 2
+			path: Classes/Service/DoctrineService.php
