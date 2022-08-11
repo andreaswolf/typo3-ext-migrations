@@ -28,6 +28,7 @@
 	},
 	"require-dev": {
 		"ergebnis/composer-normalize": "^2.28",
+		"phpstan/phpstan": "^1.8",
 		"typo3/coding-standards": "^0.5.4"
 	},
 	"autoload": {
@@ -49,6 +50,7 @@
 		}
 	},
 	"scripts": {
+		"analyze:php": "phpstan analyse --ansi --no-progress",
 		"cs:check": "php-cs-fixer fix --config .php-cs-fixer.php -v --dry-run --diff",
 		"cs:fix": "php-cs-fixer fix --config .php-cs-fixer.php -v --diff"
 	}

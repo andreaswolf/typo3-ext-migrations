@@ -1,0 +1,14 @@
+includes:
+  - phpstan-baseline.neon
+
+parameters:
+  level: 8
+  paths:
+    - Classes
+
+  inferPrivatePropertyTypeFromConstructor: true
+  ignoreErrors: []
+
+  # do not turn this off; otherwise fixed PhpStan errors will not lead to reports (and we should update the baseline once
+  # errors were fixed)
+  reportUnmatchedIgnoredErrors: true
