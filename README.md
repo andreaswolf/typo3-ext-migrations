@@ -16,11 +16,11 @@ This will give you an output like this:
  == Configuration
     >> Name:                                               Doctrine Database Migrations
     >> Database Driver:                                    pdo_mysql
-    >> Database Name:                                      schulcms
+    >> Database Name:                                      myproject
     >> Configuration Source:                               manually configured
     >> Version Table Name:                                 doctrine_migrationstatus
     >> Migrations Namespace:                               KayStrobach\Migrations\Persistence\Doctrine\Migrations
-    >> Migrations Target Directory:                        /Users/kay/Development/SBS.TYPO3/SchulCmsMigration//fileadmin/Migrations
+    >> Migrations Target Directory:                        /var/www/my-project//fileadmin/Migrations
     >> Current Version:                                    0
     >> Latest Version:                                     2014-07-14 18:44:53 (20140714184453)
     >> Executed Migrations:                                0
