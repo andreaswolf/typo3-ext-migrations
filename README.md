@@ -2,7 +2,7 @@
 
 __It's strongly recommend to use the "typo3" CLI binary!__
 
-To get the status of your migration you can run:
+To get the status of your migrations you can run:
 
     <path-to-bin>/typo3 migrations:status
 
@@ -35,8 +35,8 @@ This extension uses `doctrine/migrations` to migrate the database tables.
 
 # Own migration
 
-Create a folder called `Migrations\Mysql` in your extension and place a file (`Version20220910184453.php`) with this content:
- 
+Create a folder called `Migrations/Mysql/` in your extension and place a file (`Version20220910184453.php`) with this content:
+
 ```php
 <?php
 
