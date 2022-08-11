@@ -50,17 +50,14 @@ class Version20220910184453 extends AbstractMigration
 {
     public function up(Schema $schema): void
     {
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql');
         $this->addSql(
-            "CREATE TABLE test (textfield VARCHAR(40) NOT NULL) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB"
+            "UPDATE tt_content SET bodytext = 'Hello World' WHERE uid = 1"
         );
     }
 
     public function down(Schema $schema): void
     {
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql');
-
-        $this->addSql("Drop Table test");
+        $this->addSql("UPDATE tt_content SET bodytext = 'Hello previous version' WHERE uid = 1");
     }
 }
 ```
