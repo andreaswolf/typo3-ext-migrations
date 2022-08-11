@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace KayStrobach\Migrations\Hooks;
 
@@ -19,8 +20,8 @@ class DataHandlerVersionAddHook
         string $table,
         $id,
         array &$fieldArray,
-        DataHandler $dataHandler): void
-    {
+        DataHandler $dataHandler
+    ): void {
         if (!isset($GLOBALS['TCA'][$table])) {
             return;
         }
@@ -31,5 +32,4 @@ class DataHandlerVersionAddHook
             $fieldArray['tx_migrations_version'] = $migrationCoordinator->getCurrentVersion();
         }
     }
-
 }

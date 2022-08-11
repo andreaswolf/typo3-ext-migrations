@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace KayStrobach\Migrations\Command;
@@ -34,7 +35,7 @@ class ExecuteCommand extends DoctrineExecuteCommand
 
     public function initialize(InputInterface $input, OutputInterface $output): void
     {
-        $dryRun         = (bool) $input->getOption('dry-run');
+        $dryRun         = (bool)$input->getOption('dry-run');
         $this->doctrineService->setDryRun($dryRun);
 
         $connectionName = $input->getOption('connection') ?? 'Default';
@@ -42,5 +43,4 @@ class ExecuteCommand extends DoctrineExecuteCommand
 
         parent::initialize($input, $output);
     }
-
 }

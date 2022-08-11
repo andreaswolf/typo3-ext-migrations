@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace KayStrobach\Migrations\Service;
 
@@ -95,12 +96,12 @@ class DoctrineService implements LoggerAwareInterface
 
             if (is_dir($plattformPath)) {
                 $namespace .= ucfirst($databasePlatformName);
-                    $configuration->setMigrationsNamespace($namespace);
-                    $configuration->registerMigrationsFromDirectory($plattformPath);
+                $configuration->setMigrationsNamespace($namespace);
+                $configuration->registerMigrationsFromDirectory($plattformPath);
                 if ($filterForPackageKey !== null) {
                     $configuration->setMigrationsDirectory($plattformPath);
                 }
-            } else if ($connectionName === 'Default') {
+            } elseif ($connectionName === 'Default') {
                 $configuration->setMigrationsNamespace($namespace);
                 $configuration->registerMigrationsFromDirectory($path);
 

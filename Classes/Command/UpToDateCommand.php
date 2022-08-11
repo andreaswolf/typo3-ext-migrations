@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace KayStrobach\Migrations\Command;
 
@@ -39,5 +40,4 @@ class UpToDateCommand extends DoctrineUpToDateCommand
 
         parent::initialize($input, $output);
     }
-
 }
