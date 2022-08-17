@@ -19,7 +19,7 @@ jobs:
         with:
           php-version: "${{ matrix.php-version }}"
           coverage: none
-          tools: composer:v2.3
+          tools: composer:v2.4
       - name: "Show Composer version"
         run: composer --version
       - name: "Cache dependencies installed with composer"
@@ -52,7 +52,7 @@ jobs:
         with:
           php-version: "${{ matrix.php-version }}"
           coverage: none
-          tools: composer:v2.3
+          tools: composer:v2.4
       - name: "Show Composer version"
         run: composer --version
       - name: "Cache dependencies installed with composer"
