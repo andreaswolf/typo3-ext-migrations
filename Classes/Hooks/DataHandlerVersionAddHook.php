@@ -10,7 +10,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class DataHandlerVersionAddHook
 {
-
     /**
      * @param array<string, mixed> $fieldArray
      * @param string|int $id The record ID, either a string "NEW..." or the existing record's UID
