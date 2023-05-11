@@ -133,7 +133,7 @@ class DoctrineService implements LoggerAwareInterface
     {
         $autoloadComposerDefinition = $package->getValueFromComposerManifest('autoload');
 
-        if ($autoloadComposerDefinition->{'psr-4'} instanceof \stdClass) {
+        if (($autoloadComposerDefinition->{'psr-4'} ?? null) instanceof \stdClass) {
             $psr4Namespaces = get_object_vars($autoloadComposerDefinition->{'psr-4'});
             foreach ($psr4Namespaces as $namespace => $dir) {
                 if (strpos($namespace, '\\Migrations\\')) {
