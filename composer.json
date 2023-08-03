@@ -51,7 +51,6 @@
 		}
 	},
 	"scripts": {
-		"composer:normalize": "composer normalize --no-check-lock --dry-run",
 		"cs:check": "php-cs-fixer fix --config .php-cs-fixer.php -v --dry-run --diff",
 		"cs:fix": "php-cs-fixer fix --config .php-cs-fixer.php -v --diff",
 		"php:static": "phpstan analyze --no-interaction"
