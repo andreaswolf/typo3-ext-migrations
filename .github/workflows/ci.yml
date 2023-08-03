@@ -41,6 +41,7 @@ jobs:
           - "8.1"
         command:
           - "cs:check"
+          - "php:static"
 
   code-quality:
     name: "Code quality checks (single PHP version)"
