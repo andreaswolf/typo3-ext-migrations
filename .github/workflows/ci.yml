@@ -42,6 +42,7 @@ jobs:
         command:
           - "cs:check"
           - "php:static"
+          - "composer:normalize"
 
   code-quality:
     name: "Code quality checks (single PHP version)"
