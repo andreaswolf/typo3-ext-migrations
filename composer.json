@@ -40,6 +40,11 @@
 			"KayStrobach\\Migrations\\": "Classes/"
 		}
 	},
+	"autoload-dev": {
+		"psr-4": {
+			"KayStrobach\\Migrations\\Tests\\": "Tests/"
+		}
+	},
 	"config": {
 		"allow-plugins": {
 			"typo3/cms-composer-installers": true,

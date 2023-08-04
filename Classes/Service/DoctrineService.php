@@ -21,7 +21,7 @@ use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 class DoctrineService implements LoggerAwareInterface
 {
-    private const MIGRATION_TABLE_NAME = 'doctrine_migrationstatus';
+    public const MIGRATION_TABLE_NAME = 'doctrine_migrationstatus';
 
     use LoggerAwareTrait;
 

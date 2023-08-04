@@ -15,7 +15,13 @@ parameters:
   paths:
     - Classes
     - Configuration
+    - Tests
 
   scanDirectories:
     - Classes
     - Configuration
+    - Tests
+
+  ignoreErrors:
+    - message: '#Variable \$_EXTKEY might not be defined.#'
+      path: */ext_emconf.php
