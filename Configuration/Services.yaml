@@ -5,6 +5,11 @@ services:
       - '@TYPO3\CMS\Core\Database\ConnectionPool'
       - '@TYPO3\CMS\Core\Log\LogManager'
 
+  KayStrobach\Migrations\Tester\DoctrineCommandRunner:
+    public: true
+    arguments:
+      - '@Psr\Container\ContainerInterface'
+
   KayStrobach\Migrations\Command\DiffCommand:
     arguments:
       - '@KayStrobach\Migrations\Service\DoctrineService'
