@@ -24,7 +24,7 @@
 	"require": {
 		"php": "^8.0",
 		"doctrine/migrations": "^2.3.2",
-		"typo3/cms-core": "^11.5"
+		"typo3/cms-core": "^11.5 || ^12.4"
 	},
 	"require-dev": {
 		"bnf/phpstan-psr-container": "^1.0",
@@ -33,8 +33,8 @@
 		"phpstan/phpstan-doctrine": "^1.3",
 		"phpunit/phpunit": "^9.6",
 		"saschaegerer/phpstan-typo3": "^1.8",
-		"symfony/console": "^5.4",
-		"symfony/filesystem": "^5.4",
+		"symfony/console": "^5.4 || ^6.2",
+		"symfony/filesystem": "^5.4 || ^6.2",
 		"typo3/coding-standards": "^0.5.4",
 		"typo3/testing-framework": "^7.0 || ^8.0"
 	},
