@@ -38,6 +38,7 @@ jobs:
         php-version:
           - "8.0"
           - "8.1"
+          # TODO add PHP 8.2 once PHP-CS-Fixer supports it
         command:
           - "cs:check"
           - "php:static"
@@ -72,6 +73,7 @@ jobs:
         php-version:
           - "8.0"
           - "8.1"
+          - "8.2"
         command:
           - "normalize"
 
@@ -132,7 +134,7 @@ jobs:
       fail-fast: false
       matrix:
         typo3-version: ["^11.5", "^12.4"]
-        php-version: ["8.0", "8.1"]
+        php-version: ["8.0", "8.1", "8.2"]
         composer-dependencies: ["lowest", "highest"]
         exclude:
           - typo3-version: "^12.4"
