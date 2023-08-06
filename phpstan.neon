@@ -1,4 +1,6 @@
 includes:
+    - vendor/bnf/phpstan-psr-container/extension.neon
+    - vendor/saschaegerer/phpstan-typo3/extension.neon
     - phpstan-baseline.neon
 
 parameters:
@@ -14,7 +16,13 @@ parameters:
   paths:
     - Classes
     - Configuration
+    - Tests
 
   scanDirectories:
     - Classes
     - Configuration
+    - Tests
+
+  ignoreErrors:
+    - message: '#Variable \$_EXTKEY might not be defined.#'
+      path: */ext_emconf.php
