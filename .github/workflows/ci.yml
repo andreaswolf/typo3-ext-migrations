@@ -36,7 +36,6 @@ jobs:
       fail-fast: false
       matrix:
         php-version:
-          - "7.4"
           - "8.0"
           - "8.1"
         command:
@@ -71,7 +70,8 @@ jobs:
       fail-fast: false
       matrix:
         php-version:
-          - "7.4"
+          - "8.0"
+          - "8.1"
         command:
           - "normalize"
 
@@ -132,5 +132,5 @@ jobs:
       fail-fast: false
       matrix:
         typo3-version: ["^11.5"]
-        php-version: ["7.4", "8.0", "8.1"]
+        php-version: ["8.0", "8.1"]
         composer-dependencies: ["lowest", "highest"]
