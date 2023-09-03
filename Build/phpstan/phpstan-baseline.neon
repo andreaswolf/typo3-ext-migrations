@@ -3,14 +3,14 @@ parameters:
 		-
 			message: "#^Method KayStrobach\\\\Migrations\\\\Service\\\\DoctrineService\\:\\:getPackageMigrationNamespaceAndDirectory\\(\\) should return array\\{string, string\\} but returns array\\{null, null\\}\\.$#"
 			count: 1
-			path: Classes/Service/DoctrineService.php
+			path: ../../Classes/Service/DoctrineService.php
 
 		-
 			message: "#^Result of \\|\\| is always false\\.$#"
 			count: 1
-			path: Classes/Service/DoctrineService.php
+			path: ../../Classes/Service/DoctrineService.php
 
 		-
 			message: "#^Strict comparison using \\=\\=\\= between string and null will always evaluate to false\\.$#"
 			count: 2
-			path: Classes/Service/DoctrineService.php
+			path: ../../Classes/Service/DoctrineService.php

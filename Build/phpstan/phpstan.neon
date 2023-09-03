@@ -1,6 +1,6 @@
 includes:
-    - vendor/bnf/phpstan-psr-container/extension.neon
-    - vendor/saschaegerer/phpstan-typo3/extension.neon
+    - ../../vendor/bnf/phpstan-psr-container/extension.neon
+    - ../../vendor/saschaegerer/phpstan-typo3/extension.neon
     - phpstan-baseline.neon
 
 parameters:
@@ -9,19 +9,18 @@ parameters:
       maximumNumberOfProcesses: 5
 
   level: 8
-
   bootstrapFiles:
-    - vendor/autoload.php
+    - ../../vendor/autoload.php
 
   paths:
-    - Classes
-    - Configuration
-    - Tests
+    - ../../Classes
+    - ../../Configuration
+    - ../../Tests
 
   scanDirectories:
-    - Classes
-    - Configuration
-    - Tests
+    - ../../Classes
+    - ../../Configuration
+    - ../../Tests
 
   ignoreErrors:
     - message: '#Variable \$_EXTKEY might not be defined.#'
