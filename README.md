@@ -1,10 +1,18 @@
 # Migrate with doctrine migrations
 
+This extension uses `doctrine/migrations` to migrate the database tables.
+
 __It's strongly recommend to use the "typo3" CLI binary!__
 
 To get the status of your migrations you can run:
 
     <path-to-bin>/typo3 migrations:status
+
+To execute one pending migrations you can run:
+
+    <path-to-bin>/typo3 migrations:migrate <pending-version-id>
+
+(Hint: To roll back a migration pick the version before the one you wanna rollback!)
 
 To execute all pending migrations you can run:
 
@@ -30,8 +38,6 @@ This will give you an output like this:
  == Migration Versions
     >> 2014-07-14 18:44:53 (20140714184453) migrations                  not migrated
 ```
-
-This extension uses `doctrine/migrations` to migrate the database tables.
 
 # Own migration
 
