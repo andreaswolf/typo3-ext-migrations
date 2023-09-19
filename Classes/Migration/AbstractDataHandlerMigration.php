@@ -101,7 +101,7 @@ abstract class AbstractDataHandlerMigration extends AbstractMigration
     protected function getDataHandler(array $dataMap = [], array $commandMap = []): DataHandler
     {
         // @todo Find a way to pass the information about --dry-run from the Command to here:
-        #$dataHandlerClass = $isDryRun ? DryRunDataHandler::class : DataHandler::class;
+        //$dataHandlerClass = $isDryRun ? DryRunDataHandler::class : DataHandler::class;
         $dataHandlerClass = DataHandler::class;
 
         /** @var DataHandler $dataHandler */

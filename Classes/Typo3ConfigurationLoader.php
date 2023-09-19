@@ -20,7 +20,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class Typo3ConfigurationLoader implements ConfigurationLoader, LoggerAwareInterface
 {
-
     use LoggerAwareTrait;
 
     public const MIGRATION_TABLE_NAME = 'doctrine_migrationstatus';
@@ -91,5 +90,4 @@ class Typo3ConfigurationLoader implements ConfigurationLoader, LoggerAwareInterf
 
         return [null, null];
     }
-
 }

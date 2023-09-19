@@ -14,13 +14,11 @@ use TYPO3\CMS\Core\Log\LogManager;
  */
 class Typo3DependencyFactory extends DependencyFactory
 {
-
     public static function create(
         LogManager $logManager,
         ConnectionPool $connectionPool,
         Typo3ConfigurationLoader $configurationLoader
-    ): DependencyFactory
-    {
+    ): DependencyFactory {
         $connection = $connectionPool->getConnectionByName(ConnectionPool::DEFAULT_CONNECTION_NAME);
         $connectionLoader = new ExistingConnection($connection);
 
@@ -30,5 +28,4 @@ class Typo3DependencyFactory extends DependencyFactory
             $logManager->getLogger()
         );
     }
-
 }
