@@ -77,7 +77,7 @@ abstract class AbstractDataHandlerMigration extends AbstractMigration
 
         $this->getMigrationCoordinator()->setCurrentVersion($version);
 
-        Bootstrap::initializeBackendAuthentication(true);
+        Bootstrap::initializeBackendAuthentication();
     }
 
     public function postUp(Schema $schema): void
@@ -89,7 +89,7 @@ abstract class AbstractDataHandlerMigration extends AbstractMigration
 
     public function preDown(Schema $schema): void
     {
-        Bootstrap::initializeBackendAuthentication(true);
+        Bootstrap::initializeBackendAuthentication();
     }
 
     /**
