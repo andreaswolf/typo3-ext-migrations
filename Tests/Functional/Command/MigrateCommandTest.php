@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace KayStrobach\Migrations\Tests\Functional\Command;
 
-use KayStrobach\Migrations\Command\MigrateCommand;
-use KayStrobach\Migrations\Service\DoctrineService;
+use Doctrine\Migrations\Tools\Console\Command\MigrateCommand;
+use KayStrobach\Migrations\Typo3ConfigurationLoader;
 use Symfony\Component\Console\Helper\HelperSet;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Tester\CommandTester;
@@ -13,7 +13,7 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
- * @covers \KayStrobach\Migrations\Command\MigrateCommand
+ * @covers \Doctrine\Migrations\Tools\Console\Command\MigrateCommand
  */
 class MigrateCommandTest extends FunctionalTestCase
 {
@@ -35,9 +35,10 @@ class MigrateCommandTest extends FunctionalTestCase
 
         $commandTester->assertCommandIsSuccessful();
 
+        /** @var \TYPO3\CMS\Core\Database\Connection $connection */
         $connection = $this->get(ConnectionPool::class)
-            ->getConnectionForTable(DoctrineService::MIGRATION_TABLE_NAME);
-        $result = $connection->select(['*'], DoctrineService::MIGRATION_TABLE_NAME)->fetchAllAssociative();
+            ->getConnectionForTable(Typo3ConfigurationLoader::MIGRATION_TABLE_NAME);
+        $result = $connection->select(['*'], Typo3ConfigurationLoader::MIGRATION_TABLE_NAME)->fetchAllAssociative();
 
         self::assertCount(1, $result);
         self::assertSame('20230804102700', $result[0]['version']);

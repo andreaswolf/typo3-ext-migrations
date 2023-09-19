@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace KayStrobach\Migrations\Tests\Functional\Migration;
 
-use KayStrobach\Migrations\Service\DoctrineService;
 use KayStrobach\Migrations\Tester\DoctrineCommandRunner;
+use KayStrobach\Migrations\Typo3ConfigurationLoader;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Authentication\CommandLineUserAuthentication;
 use TYPO3\CMS\Core\Core\Bootstrap;
@@ -30,9 +30,10 @@ class AbstractDataHandlerMigrationTest extends FunctionalTestCase
         $GLOBALS['BE_USER']->workspace = 0;
         $this->get(DoctrineCommandRunner::class)->executeMigrateCommand();
 
+        /** @var \TYPO3\CMS\Core\Database\Connection $connection */
         $connection = $this->get(ConnectionPool::class)
-            ->getConnectionForTable(DoctrineService::MIGRATION_TABLE_NAME);
-        $result = $connection->select(['*'], DoctrineService::MIGRATION_TABLE_NAME)->fetchAllAssociative();
+            ->getConnectionForTable(Typo3ConfigurationLoader::MIGRATION_TABLE_NAME);
+        $result = $connection->select(['*'], Typo3ConfigurationLoader::MIGRATION_TABLE_NAME)->fetchAllAssociative();
 
         self::assertCount(1, $result, 'No or more than one migration was executed');
         self::assertSame('20230804162200', $result[0]['version']);

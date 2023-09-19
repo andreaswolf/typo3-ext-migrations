@@ -1,16 +1,11 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Method KayStrobach\\\\Migrations\\\\Service\\\\DoctrineService\\:\\:getPackageMigrationNamespaceAndDirectory\\(\\) should return array\\{string, string\\} but returns array\\{null, null\\}\\.$#"
-			count: 1
-			path: Classes/Service/DoctrineService.php
-
-		-
-			message: "#^Result of \\|\\| is always false\\.$#"
-			count: 1
-			path: Classes/Service/DoctrineService.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between string and null will always evaluate to false\\.$#"
+			message: "#^Call to an undefined method .*Statement::fetchAllAssociative#"
 			count: 2
-			path: Classes/Service/DoctrineService.php
+			path: Tests/Functional/Command/MigrateCommandTest.php
+
+		-
+			message: "#^Call to an undefined method .*Statement::fetchAllAssociative#"
+			count: 1
+			path: Tests/Functional/Migration/AbstractDataHandlerMigrationTest.php
