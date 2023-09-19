@@ -55,14 +55,14 @@ class Typo3ConfigurationLoader implements ConfigurationLoader, LoggerAwareInterf
             [$namespace, $path] = $this->getPackageMigrationNamespaceAndDirectory($package);
 
             if ($namespace === null || $path === null) {
-                $this->logger->debug(sprintf('Package %s does not contain any migrations', $package->getPackageKey()));
+                $this->logger?->debug(sprintf('Package %s does not contain any migrations', $package->getPackageKey()));
                 continue;
             }
 
             $plattformPath = $path . ucfirst($databasePlatformName) . '/';
 
             if (is_dir($plattformPath)) {
-                $this->logger->debug(sprintf('Adding migrations for Package %s', $package->getPackageKey()));
+                $this->logger?->debug(sprintf('Adding migrations for Package %s', $package->getPackageKey()));
                 $namespace .= ucfirst($databasePlatformName);
                 $configuration->addMigrationsDirectory($namespace, $plattformPath);
             }
