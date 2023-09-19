@@ -36,7 +36,7 @@ class AbstractDataHandlerMigrationTest extends FunctionalTestCase
         $result = $connection->select(['*'], Typo3ConfigurationLoader::MIGRATION_TABLE_NAME)->fetchAllAssociative();
 
         self::assertCount(1, $result, 'No or more than one migration was executed');
-        self::assertSame('20230804162200', $result[0]['version']);
+        self::assertSame('KayStrobach\\Migrations\\TestFixtures\\Migrations\\Mysql\\Version20230804162200', $result[0]['version']);
 
         $result = BackendUtility::getRecord('pages', 1);
         self::assertIsArray($result);
