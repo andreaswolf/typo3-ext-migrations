@@ -12,15 +12,15 @@ To execute all pending migrations you can run:
 
     <path-to-bin>/typo3 migrations:migrate
 
-# Update from TYPO3 9/10 to 11/12
+# Upgrade from TYPO3 9/10 to 11/12
 
 Moving to TYPO3 11, this extensions switched from doctrine/migration 2.x to 3.x for compatibility
 with PHP 8.
 
-After running the Database Compare migrations, apply the following migration to your migrations status table:
+After running the Database Compare migrations, don't forget to run the Upgrade Wizards which will
+migrate the table `migration_statustable`:
 ```
-SET @namespace = "KayStrobach\\Migrations\\Persistence\\Doctrine\\Migrations\\Version";
-UPDATE doctrine_migrationstatus SET version=concat(@namespace, version) WHERE version NOT LIKE concat(@namespace, '%');
+bin/typo3 upgrade:run migration_statustable
 ```
 
 Replace the `@namespace` setting with the namespace of your extension.
