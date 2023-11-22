@@ -5,8 +5,7 @@ namespace KayStrobach\Migrations;
 use Doctrine\Migrations\Configuration\Configuration;
 use Doctrine\Migrations\Configuration\Migration\ConfigurationLoader;
 use Doctrine\Migrations\Metadata\Storage\TableMetadataStorageConfiguration;
-use Psr\Log\LoggerAwareInterface;
-use Psr\Log\LoggerAwareTrait;
+use Psr\Log\LoggerInterface;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Log\LogManager;
@@ -18,19 +17,19 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * Implements a doctrine/migration ConfigurationLoader with a TYPO3 specific flavour
  * - Adds
  */
-class Typo3ConfigurationLoader implements ConfigurationLoader, LoggerAwareInterface
+class Typo3ConfigurationLoader implements ConfigurationLoader
 {
-    use LoggerAwareTrait;
-
     public const MIGRATION_TABLE_NAME = 'doctrine_migrationstatus';
     private PackageManager $packageManager;
     private ConnectionPool $connectionPool;
+
+    private LoggerInterface $logger;
 
     public function __construct(PackageManager $packageManager, ConnectionPool $connectionPool, LogManager $logManager)
     {
         $this->packageManager = $packageManager;
         $this->connectionPool = $connectionPool;
-        $this->setLogger($logManager->getLogger());
+        $this->logger = $logManager->getLogger();
     }
 
     public function getConfiguration(): Configuration
@@ -55,14 +54,14 @@ class Typo3ConfigurationLoader implements ConfigurationLoader, LoggerAwareInterf
             [$namespace, $path] = $this->getPackageMigrationNamespaceAndDirectory($package);
 
             if ($namespace === null || $path === null) {
-                $this->logger?->debug(sprintf('Package %s does not contain any migrations', $package->getPackageKey()));
+                $this->logger->debug(sprintf('Package %s does not contain any migrations', $package->getPackageKey()));
                 continue;
             }
 
             $plattformPath = $path . ucfirst($databasePlatformName) . '/';
 
             if (is_dir($plattformPath)) {
-                $this->logger?->debug(sprintf('Adding migrations for Package %s', $package->getPackageKey()));
+                $this->logger->debug(sprintf('Adding migrations for Package %s', $package->getPackageKey()));
                 $namespace .= ucfirst($databasePlatformName);
                 $configuration->addMigrationsDirectory($namespace, $plattformPath);
             }
