@@ -20,12 +20,10 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class Typo3ConfigurationLoader implements ConfigurationLoader
 {
     public const MIGRATION_TABLE_NAME = 'doctrine_migrationstatus';
-    private PackageManager $packageManager;
-    private ConnectionPool $connectionPool;
 
     private LoggerInterface $logger;
 
-    public function __construct(PackageManager $packageManager, ConnectionPool $connectionPool, LogManager $logManager)
+    public function __construct(private PackageManager $packageManager, private ConnectionPool $connectionPool, LogManager $logManager)
     {
         $this->packageManager = $packageManager;
         $this->connectionPool = $connectionPool;
