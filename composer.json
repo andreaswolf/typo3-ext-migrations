@@ -24,7 +24,7 @@
 	"require": {
 		"php": "^8.0",
 		"doctrine/migrations": "^3.4.2",
-		"typo3/cms-core": "^11.5 || ^12.4"
+		"typo3/cms-core": "^11.5 || ^12.4.9"
 	},
 	"require-dev": {
 		"bnf/phpstan-psr-container": "^1.0",
