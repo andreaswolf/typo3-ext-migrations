@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace KayStrobach\Migrations\Tester;
 
-use KayStrobach\Migrations\Command\MigrateCommand;
+use Doctrine\Migrations\Tools\Console\Command\MigrateCommand;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Console\Helper\HelperSet;
 use Symfony\Component\Console\Helper\QuestionHelper;
@@ -15,11 +15,8 @@ use Symfony\Component\Console\Tester\CommandTester;
  */
 final class DoctrineCommandRunner
 {
-    private ContainerInterface $container;
-
-    public function __construct(ContainerInterface $container)
+    public function __construct(private ContainerInterface $container)
     {
-        $this->container = $container;
     }
 
     public function executeMigrateCommand(): void

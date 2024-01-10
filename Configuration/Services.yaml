@@ -10,51 +10,106 @@ services:
     arguments:
       - '@Psr\Container\ContainerInterface'
 
-  KayStrobach\Migrations\Command\DiffCommand:
+  KayStrobach\Migrations\Typo3ConfigurationLoader:
     arguments:
-      - '@KayStrobach\Migrations\Service\DoctrineService'
+      - '@TYPO3\CMS\Core\Package\PackageManager'
+      - '@TYPO3\CMS\Core\Database\ConnectionPool'
+      - '@TYPO3\CMS\Core\Log\LogManager'
+
+  KayStrobach\Migrations\Typo3DependencyFactory:
+    factory: [null, 'create']
+    arguments:
+      - '@TYPO3\CMS\Core\Log\LogManager'
+      - '@TYPO3\CMS\Core\Database\ConnectionPool'
+      - '@KayStrobach\Migrations\Typo3ConfigurationLoader'
+
+  Doctrine\Migrations\Tools\Console\Command\CurrentCommand:
+    arguments:
+      - '@KayStrobach\Migrations\Typo3DependencyFactory'
+    tags:
+      - name: 'console.command'
+        command: 'migrations:current'
+        schedulable: false
+  Doctrine\Migrations\Tools\Console\Command\DiffCommand:
+    arguments:
+      - '@KayStrobach\Migrations\Typo3DependencyFactory'
     tags:
       - name: 'console.command'
         command: 'migrations:diff'
         schedulable: false
-  KayStrobach\Migrations\Command\ExecuteCommand:
+  Doctrine\Migrations\Tools\Console\Command\DumpSchemaCommand:
     arguments:
-      - '@KayStrobach\Migrations\Service\DoctrineService'
+      - '@KayStrobach\Migrations\Typo3DependencyFactory'
+    tags:
+      - name: 'console.command'
+        command: 'migrations:dump-schema'
+        schedulable: false
+  Doctrine\Migrations\Tools\Console\Command\ExecuteCommand:
+    arguments:
+      - '@KayStrobach\Migrations\Typo3DependencyFactory'
     tags:
       - name: 'console.command'
         command: 'migrations:execute'
         schedulable: false
-  KayStrobach\Migrations\Command\MigrateCommand:
+  Doctrine\Migrations\Tools\Console\Command\GenerateCommand:
     arguments:
-      - '@KayStrobach\Migrations\Service\DoctrineService'
+      - '@KayStrobach\Migrations\Typo3DependencyFactory'
+    tags:
+      - name: 'console.command'
+        command: 'migrations:generate'
+        schedulable: false
+  Doctrine\Migrations\Tools\Console\Command\LatestCommand:
+    arguments:
+      - '@KayStrobach\Migrations\Typo3DependencyFactory'
+    tags:
+      - name: 'console.command'
+        command: 'migrations:latest'
+        schedulable: false
+  Doctrine\Migrations\Tools\Console\Command\ListCommand:
+    arguments:
+      - '@KayStrobach\Migrations\Typo3DependencyFactory'
+    tags:
+      - name: 'console.command'
+        command: 'migrations:list'
+        schedulable: false
+  Doctrine\Migrations\Tools\Console\Command\MigrateCommand:
+    arguments:
+      - '@KayStrobach\Migrations\Typo3DependencyFactory'
     tags:
       - name: 'console.command'
         command: 'migrations:migrate'
         schedulable: false
-  KayStrobach\Migrations\Command\RollupCommand:
+  Doctrine\Migrations\Tools\Console\Command\RollupCommand:
     arguments:
-      - '@KayStrobach\Migrations\Service\DoctrineService'
+      - '@KayStrobach\Migrations\Typo3DependencyFactory'
     tags:
       - name: 'console.command'
         command: 'migrations:rollup'
         schedulable: false
-  KayStrobach\Migrations\Command\UpToDateCommand:
+  Doctrine\Migrations\Tools\Console\Command\StatusCommand:
     arguments:
-      - '@KayStrobach\Migrations\Service\DoctrineService'
-    tags:
-      - name: 'console.command'
-        command: 'migrations:uptodate'
-        schedulable: false
-  KayStrobach\Migrations\Command\StatusCommand:
-    arguments:
-      - '@KayStrobach\Migrations\Service\DoctrineService'
+      - '@KayStrobach\Migrations\Typo3DependencyFactory'
     tags:
       - name: 'console.command'
         command: 'migrations:status'
         schedulable: false
-  KayStrobach\Migrations\Command\VersionCommand:
+  Doctrine\Migrations\Tools\Console\Command\SyncMetadataCommand:
     arguments:
-      - '@KayStrobach\Migrations\Service\DoctrineService'
+      - '@KayStrobach\Migrations\Typo3DependencyFactory'
+    tags:
+      - name: 'console.command'
+        command: 'migrations:sync-metadata-storage'
+        schedulable: false
+  Doctrine\Migrations\Tools\Console\Command\UpToDateCommand:
+    arguments:
+      - '@KayStrobach\Migrations\Typo3DependencyFactory'
+    tags:
+      - name: 'console.command'
+        command: 'migrations:up-to-date'
+        schedulable: false
+  Doctrine\Migrations\Tools\Console\Command\VersionCommand:
+    arguments:
+      - '@KayStrobach\Migrations\Typo3DependencyFactory'
     tags:
       - name: 'console.command'
         command: 'migrations:version'

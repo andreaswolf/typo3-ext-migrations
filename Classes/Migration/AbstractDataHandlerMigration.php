@@ -4,20 +4,15 @@ declare(strict_types=1);
 
 namespace KayStrobach\Migrations\Migration;
 
+use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
-use Doctrine\Migrations\Version\Version;
 use KayStrobach\Migrations\DataHandling\DryRunDataHandler;
 use KayStrobach\Migrations\Service\DoctrineMigrationCoordinator;
-use KayStrobach\Migrations\Service\DoctrineService;
+use Psr\Log\LoggerInterface;
 use TYPO3\CMS\Core\Core\Bootstrap;
-use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
-use TYPO3\CMS\Core\Log\LogManager;
-use TYPO3\CMS\Core\Package\PackageManager;
-use TYPO3\CMS\Core\Service\DependencyOrderingService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 /**
  * Base class for migrations using the TYPO3 DataHandler
@@ -40,31 +35,12 @@ abstract class AbstractDataHandlerMigration extends AbstractMigration
 
     private DoctrineMigrationCoordinator $doctrineMigrationCoordinator;
 
-    private DoctrineService $doctrineService;
-
-    public function __construct(Version $version)
+    public function __construct(Connection $connection, LoggerInterface $logger)
     {
-        parent::__construct($version);
+        parent::__construct($connection, $logger);
 
         $this->doctrineMigrationCoordinator = new DoctrineMigrationCoordinator();
         $this->doctrineMigrationCoordinator->setCurrentVersion(static::class);
-
-        if (VersionNumberUtility::convertVersionNumberToInteger(VersionNumberUtility::getCurrentTypo3Version()) < 100000) {
-            $dependencyOrderingService = GeneralUtility::makeInstance(DependencyOrderingService::class);
-            $packageManager = GeneralUtility::makeInstance(PackageManager::class, $dependencyOrderingService);
-        } else {
-            $packageManager = GeneralUtility::makeInstance(PackageManager::class);
-        }
-
-        // todo: refactor this with proper dependency injection if possible
-        /** @var DoctrineService $doctrineService */
-        $doctrineService = GeneralUtility::makeInstance(
-            DoctrineService::class,
-            $packageManager,
-            GeneralUtility::makeInstance(ConnectionPool::class),
-            GeneralUtility::makeInstance(LogManager::class),
-        );
-        $this->doctrineService = $doctrineService;
     }
 
     /**
@@ -101,7 +77,7 @@ abstract class AbstractDataHandlerMigration extends AbstractMigration
 
         $this->getMigrationCoordinator()->setCurrentVersion($version);
 
-        Bootstrap::initializeBackendAuthentication(true);
+        Bootstrap::initializeBackendAuthentication();
     }
 
     public function postUp(Schema $schema): void
@@ -113,7 +89,7 @@ abstract class AbstractDataHandlerMigration extends AbstractMigration
 
     public function preDown(Schema $schema): void
     {
-        Bootstrap::initializeBackendAuthentication(true);
+        Bootstrap::initializeBackendAuthentication();
     }
 
     /**
@@ -124,7 +100,9 @@ abstract class AbstractDataHandlerMigration extends AbstractMigration
      */
     protected function getDataHandler(array $dataMap = [], array $commandMap = []): DataHandler
     {
-        $dataHandlerClass = $this->doctrineService->isDryRun() ? DryRunDataHandler::class : DataHandler::class;
+        // @todo Find a way to pass the information about --dry-run from the Command to here:
+        //$dataHandlerClass = $isDryRun ? DryRunDataHandler::class : DataHandler::class;
+        $dataHandlerClass = DataHandler::class;
 
         /** @var DataHandler $dataHandler */
         $dataHandler = GeneralUtility::makeInstance($dataHandlerClass);

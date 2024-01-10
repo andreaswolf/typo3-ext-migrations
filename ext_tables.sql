@@ -10,6 +10,7 @@ CREATE TABLE tt_content
 
 CREATE TABLE doctrine_migrationstatus
 (
-	version VARCHAR(14) NOT NULL PRIMARY KEY,
-	executed_at DATETIME NOT NULL
+	version VARCHAR(191) NOT NULL PRIMARY KEY,
+	executed_at DATETIME DEFAULT NULL,
+	execution_time INT(11) DEFAULT NULL,
 );
