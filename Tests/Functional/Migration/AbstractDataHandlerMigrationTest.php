@@ -10,6 +10,7 @@ use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Authentication\CommandLineUserAuthentication;
 use TYPO3\CMS\Core\Core\Bootstrap;
 use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
@@ -22,11 +23,19 @@ class AbstractDataHandlerMigrationTest extends FunctionalTestCase
         'typo3conf/ext/migrations/Tests/Functional/Migration/Fixtures/test_migrations_datahandler',
     ];
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $GLOBALS['LANG'] = $this->get(LanguageServiceFactory::class)->create('en_US');
+
+        Bootstrap::initializeBackendUser(CommandLineUserAuthentication::class);
+        $GLOBALS['BE_USER']->workspace = 0;
+    }
+
     #[\PHPUnit\Framework\Attributes\Test]
     public function dataHandlerMigrationRunsDataHandler(): void
     {
-        Bootstrap::initializeBackendUser(CommandLineUserAuthentication::class);
-        $GLOBALS['BE_USER']->workspace = 0;
         $this->get(DoctrineCommandRunner::class)->executeMigrateCommand();
 
         /** @var \TYPO3\CMS\Core\Database\Connection $connection */
