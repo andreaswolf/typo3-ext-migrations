@@ -1,8 +1,14 @@
 {
+  "name": "andreaswolf/typo3-migrations-test-migrations",
   "type": "typo3-cms-extension",
   "autoload": {
     "psr-4": {
       "KayStrobach\\Migrations\\TestFixtures\\Migrations\\": "Migrations/"
+    }
+  },
+  "extra": {
+    "typo3/cms": {
+      "extension-key": "test_migrations"
     }
   }
 }

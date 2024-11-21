@@ -19,7 +19,7 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 class MigrateCommandTest extends FunctionalTestCase
 {
     protected array $testExtensionsToLoad = [
-        'typo3conf/ext/migrations',
+        'kaystrobach/migrations',
         'typo3conf/ext/migrations/Tests/Functional/Command/Fixtures/test_migrations',
     ];
 
