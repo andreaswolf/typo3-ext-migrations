@@ -5,6 +5,7 @@ namespace KayStrobach\Migrations;
 use Doctrine\Migrations\Configuration\Configuration;
 use Doctrine\Migrations\Configuration\Migration\ConfigurationLoader;
 use Doctrine\Migrations\Metadata\Storage\TableMetadataStorageConfiguration;
+use KayStrobach\Migrations\Service\PlatformName;
 use Psr\Log\LoggerInterface;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Database\ConnectionPool;
@@ -44,7 +45,12 @@ class Typo3ConfigurationLoader implements ConfigurationLoader
         $configuration->setMetadataStorageConfiguration($metadataStorageConfiguration);
 
         $connection = $this->connectionPool->getConnectionByName(ConnectionPool::DEFAULT_CONNECTION_NAME);
-        $databasePlatformName = $connection->getDatabasePlatform()->getName();
+        $databasePlatform = $connection->getDatabasePlatform();
+        if (method_exists($databasePlatform, 'getName')) {
+            $databasePlatformName = $databasePlatform->getName();
+        } else {
+            $databasePlatformName = PlatformName::getNameForPlatform($databasePlatform);
+        }
 
         foreach ($this->packageManager->getActivePackages() as $package) {
             [$namespace, $path] = $this->getPackageMigrationNamespaceAndDirectory($package);

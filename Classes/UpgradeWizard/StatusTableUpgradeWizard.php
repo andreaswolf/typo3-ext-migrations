@@ -2,6 +2,7 @@
 
 namespace KayStrobach\Migrations\UpgradeWizard;
 
+use KayStrobach\Migrations\Service\PlatformName;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
@@ -57,7 +58,7 @@ class StatusTableUpgradeWizard implements UpgradeWizardInterface
     {
         $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
         $connection = $connectionPool->getConnectionByName(ConnectionPool::DEFAULT_CONNECTION_NAME);
-        $databasePlatformName = $connection->getDatabasePlatform()->getName();
+        $databasePlatformName = PlatformName::getNameForPlatform($connection->getDatabasePlatform());
 
         $packageManager = GeneralUtility::makeInstance(PackageManager::class);
         $mapping = [];
