@@ -28,7 +28,11 @@ class Typo3DependencyFactory extends DependencyFactory
             $connectionLoader,
             $logManager->getLogger()
         );
-        $connection->getEventManager()->addEventSubscriber(new PrintMigrationVersionListener($dependencyFactory));
+
+        // This is only available for Doctrine 3.x
+        if (method_exists($connection, 'getEventManager')) {
+            $connection->getEventManager()->addEventSubscriber(new PrintMigrationVersionListener($dependencyFactory));
+        }
 
         return $dependencyFactory;
     }

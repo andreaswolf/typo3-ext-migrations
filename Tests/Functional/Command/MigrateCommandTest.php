@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace KayStrobach\Migrations\Tests\Functional\Command;
 
+use Doctrine\DBAL\Connection;
 use Doctrine\Migrations\Tools\Console\Command\MigrateCommand;
 use KayStrobach\Migrations\Typo3ConfigurationLoader;
 use Symfony\Component\Console\Helper\HelperSet;
@@ -35,8 +36,11 @@ class MigrateCommandTest extends FunctionalTestCase
 
         $commandTester->assertCommandIsSuccessful();
 
-        $output = $commandTester->getDisplay();
-        self::assertStringContainsString('Executing KayStrobach\\Migrations\\TestFixtures\\Migrations\\Mysql\\Version20230804102700', $output);
+        if (method_exists(Connection::class, 'getEventManager')) {
+            // This is only available for Doctrine 3.x
+            $output = $commandTester->getDisplay();
+            self::assertStringContainsString('Executing KayStrobach\\Migrations\\TestFixtures\\Migrations\\Mysql\\Version20230804102700', $output);
+        }
 
         /** @var \TYPO3\CMS\Core\Database\Connection $connection */
         $connection = $this->get(ConnectionPool::class)
