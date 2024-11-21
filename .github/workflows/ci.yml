@@ -10,7 +10,7 @@ on:
 jobs:
   code-quality-matrix:
     name: "Code quality checks (PHP version matrix)"
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - name: "Checkout"
         uses: actions/checkout@v3
@@ -45,7 +45,7 @@ jobs:
 
   code-quality:
     name: "Code quality checks (single PHP version)"
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - name: "Checkout"
         uses: actions/checkout@v3
@@ -80,7 +80,7 @@ jobs:
 
   functional-tests:
     name: "Functional tests"
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     env:
       DB_DATABASE: typo3
       DB_USER: root
