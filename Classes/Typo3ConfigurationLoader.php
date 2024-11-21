@@ -21,9 +21,9 @@ class Typo3ConfigurationLoader implements ConfigurationLoader
 {
     public const MIGRATION_TABLE_NAME = 'doctrine_migrationstatus';
 
-    private LoggerInterface $logger;
+    private readonly LoggerInterface $logger;
 
-    public function __construct(private PackageManager $packageManager, private ConnectionPool $connectionPool, LogManager $logManager)
+    public function __construct(private readonly PackageManager $packageManager, private readonly ConnectionPool $connectionPool, LogManager $logManager)
     {
         $this->logger = $logManager->getLogger();
     }
@@ -54,11 +54,11 @@ class Typo3ConfigurationLoader implements ConfigurationLoader
                 continue;
             }
 
-            $plattformPath = $path . ucfirst($databasePlatformName) . '/';
+            $plattformPath = $path . ucfirst((string)$databasePlatformName) . '/';
 
             if (is_dir($plattformPath)) {
                 $this->logger->debug(sprintf('Adding migrations for Package %s', $package->getPackageKey()));
-                $namespace .= ucfirst($databasePlatformName);
+                $namespace .= ucfirst((string)$databasePlatformName);
                 $configuration->addMigrationsDirectory($namespace, $plattformPath);
             }
         }

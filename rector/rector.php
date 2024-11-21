@@ -17,5 +17,5 @@ return RectorConfig::configure()
         __DIR__ . '/../vendor/',
     ])
     // uncomment to reach your current PHP version
-    ->withPhpSets(php80: true)
+    ->withPhpSets(php81: true)
     ->withTypeCoverageLevel(0);

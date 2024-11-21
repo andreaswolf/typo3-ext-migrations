@@ -69,13 +69,13 @@ class StatusTableUpgradeWizard implements UpgradeWizardInterface
             $psr4Namespaces = get_object_vars($autoloadComposerDefinition->{'psr-4'});
             foreach ($psr4Namespaces as $namespace => $dir) {
                 if (strpos($namespace, '\\Migrations')) {
-                    $fullDir = $package->getPackagePath() . $dir . ucfirst($databasePlatformName);
+                    $fullDir = $package->getPackagePath() . $dir . ucfirst((string)$databasePlatformName);
                     $files = glob($fullDir . '/Version*.php');
                     if (! is_array($files)) {
                         continue;
                     }
                     foreach ($files as $file) {
-                        $className = rtrim($namespace, '\\') . '\\' . ucfirst($databasePlatformName)
+                        $className = rtrim($namespace, '\\') . '\\' . ucfirst((string)$databasePlatformName)
                             . '\\' . str_replace('.php', '', basename($file));
                         $legacyNumber = preg_replace('/[^0-9]/', '', basename($file));
                         $mapping[$legacyNumber] = $className;
