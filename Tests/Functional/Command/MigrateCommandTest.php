@@ -48,7 +48,7 @@ class MigrateCommandTest extends FunctionalTestCase
         $result = $connection->select(['*'], Typo3ConfigurationLoader::MIGRATION_TABLE_NAME)->fetchAllAssociative();
 
         self::assertCount(1, $result);
-        self::assertSame('KayStrobach\\Migrations\\TestFixtures\\Migrations\\Mysql\\Version20230804102700', $result[0]['version']);
+        self::assertSame(\KayStrobach\Migrations\TestFixtures\Migrations\Mysql\Version20230804102700::class, $result[0]['version']);
 
         $result = $connection->select(['*'], 'pages', ['uid' => 1])->fetchAllAssociative();
         self::assertSame('My test page', $result[0]['title']);

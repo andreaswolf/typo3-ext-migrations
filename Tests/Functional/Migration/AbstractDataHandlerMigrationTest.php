@@ -26,7 +26,6 @@ class AbstractDataHandlerMigrationTest extends FunctionalTestCase
     public function dataHandlerMigrationRunsDataHandler(): void
     {
         Bootstrap::initializeBackendUser(CommandLineUserAuthentication::class);
-        Bootstrap::initializeLanguageObject();
         $GLOBALS['BE_USER']->workspace = 0;
         $this->get(DoctrineCommandRunner::class)->executeMigrateCommand();
 
@@ -36,7 +35,7 @@ class AbstractDataHandlerMigrationTest extends FunctionalTestCase
         $result = $connection->select(['*'], Typo3ConfigurationLoader::MIGRATION_TABLE_NAME)->fetchAllAssociative();
 
         self::assertCount(1, $result, 'No or more than one migration was executed');
-        self::assertSame('KayStrobach\\Migrations\\TestFixtures\\Migrations\\Mysql\\Version20230804162200', $result[0]['version']);
+        self::assertSame(\KayStrobach\Migrations\TestFixtures\Migrations\Mysql\Version20230804162200::class, $result[0]['version']);
 
         $result = BackendUtility::getRecord('pages', 1);
         self::assertIsArray($result);
