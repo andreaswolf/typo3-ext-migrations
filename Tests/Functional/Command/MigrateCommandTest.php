@@ -23,7 +23,7 @@ class MigrateCommandTest extends FunctionalTestCase
         'typo3conf/ext/migrations/Tests/Functional/Command/Fixtures/test_migrations',
     ];
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function migrationCommandExecutesMigrationsDefinedInExtensionWhenMigrationNamespaceIsRegisteredInComposer(): void
     {
         $migrateCommand = $this->get(MigrateCommand::class);

@@ -18,4 +18,5 @@ return RectorConfig::configure()
     ])
     // uncomment to reach your current PHP version
     ->withPhpSets(php81: true)
+    ->withAttributesSets(symfony: true, phpunit: true)
     ->withTypeCoverageLevel(0);

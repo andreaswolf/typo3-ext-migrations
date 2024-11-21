@@ -22,7 +22,7 @@ class AbstractDataHandlerMigrationTest extends FunctionalTestCase
         'typo3conf/ext/migrations/Tests/Functional/Migration/Fixtures/test_migrations_datahandler',
     ];
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function dataHandlerMigrationRunsDataHandler(): void
     {
         Bootstrap::initializeBackendUser(CommandLineUserAuthentication::class);
