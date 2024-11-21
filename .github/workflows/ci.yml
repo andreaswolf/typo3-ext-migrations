@@ -10,20 +10,20 @@ on:
 jobs:
   code-quality-matrix:
     name: "Code quality checks (PHP version matrix)"
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - name: "Checkout"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: "Install PHP"
         uses: shivammathur/setup-php@v2
         with:
           php-version: "${{ matrix.php-version }}"
           coverage: none
-          tools: composer:v2.4
+          tools: composer:v2.7
       - name: "Show Composer version"
         run: composer --version
       - name: "Cache dependencies installed with composer"
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           key: "php${{ matrix.php-version }}-composer-${{ hashFiles('**/composer.json') }}"
           path: ~/.cache/composer
@@ -36,29 +36,29 @@ jobs:
       fail-fast: false
       matrix:
         php-version:
-          - "7.4"
           - "8.0"
           - "8.1"
+          # TODO add PHP 8.2 once PHP-CS-Fixer supports it
         command:
           - "cs:check"
           - "php:static"
 
   code-quality:
     name: "Code quality checks (single PHP version)"
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - name: "Checkout"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: "Install PHP"
         uses: shivammathur/setup-php@v2
         with:
           php-version: "${{ matrix.php-version }}"
           coverage: none
-          tools: composer:v2.4
+          tools: composer:v2.7
       - name: "Show Composer version"
         run: composer --version
       - name: "Cache dependencies installed with composer"
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           key: "php${{ matrix.php-version }}-composer-${{ hashFiles('**/composer.json') }}"
           path: ~/.cache/composer
@@ -71,13 +71,16 @@ jobs:
       fail-fast: false
       matrix:
         php-version:
-          - "7.4"
+          - "8.0"
+          - "8.1"
+          - "8.2"
+          - "8.3"
         command:
           - "normalize"
 
   functional-tests:
     name: "Functional tests"
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     env:
       DB_DATABASE: typo3
       DB_USER: root
@@ -85,12 +88,12 @@ jobs:
       DB_HOST: localhost
     steps:
       - name: "Checkout"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: "Install PHP"
         uses: shivammathur/setup-php@v2
         with:
           php-version: "${{ matrix.php-version }}"
-          tools: composer:v2.4
+          tools: composer:v2.7
           extensions: mysqli
           coverage: none
       - name: "Show Composer version"
@@ -98,7 +101,7 @@ jobs:
       - name: "Show the Composer configuration"
         run: "composer config --global --list"
       - name: "Cache dependencies installed with composer"
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           key: "php${{ matrix.php-version }}-typo3${{ matrix.typo3-version }}-${{ matrix.composer-dependencies }}-composer-${{ hashFiles('**/composer.json') }}"
           path: ~/.cache/composer
@@ -131,6 +134,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        typo3-version: ["^11.5"]
-        php-version: ["7.4", "8.0", "8.1"]
+        typo3-version: ["^11.5", "^12.4"]
+        php-version: ["8.0", "8.1", "8.2", "8.3"]
         composer-dependencies: ["lowest", "highest"]
+        exclude:
+          - typo3-version: "^12.4"
+            php-version: "8.0"
