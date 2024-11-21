@@ -133,6 +133,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        typo3-version: ["^11.5", "^12.4"]
+        typo3-version: ["^12.4", "^13.4"]
         php-version: ["8.1", "8.2", "8.3"]
         composer-dependencies: ["lowest", "highest"]
+        exclude:
+          - typo3-version: "^13.4"
+            php-version: "8.1"
