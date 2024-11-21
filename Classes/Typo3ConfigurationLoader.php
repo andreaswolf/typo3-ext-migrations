@@ -25,8 +25,6 @@ class Typo3ConfigurationLoader implements ConfigurationLoader
 
     public function __construct(private PackageManager $packageManager, private ConnectionPool $connectionPool, LogManager $logManager)
     {
-        $this->packageManager = $packageManager;
-        $this->connectionPool = $connectionPool;
         $this->logger = $logManager->getLogger();
     }
 
