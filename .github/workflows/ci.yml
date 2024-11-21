@@ -36,9 +36,9 @@ jobs:
       fail-fast: false
       matrix:
         php-version:
-          - "8.0"
           - "8.1"
-          # TODO add PHP 8.2 once PHP-CS-Fixer supports it
+          - "8.2"
+          - "8.3"
         command:
           - "cs:check"
           - "php:static"
@@ -71,7 +71,6 @@ jobs:
       fail-fast: false
       matrix:
         php-version:
-          - "8.0"
           - "8.1"
           - "8.2"
           - "8.3"
@@ -112,6 +111,14 @@ jobs:
         run: |
           composer require --no-ansi --no-interaction --no-progress --no-install typo3/cms-core:"$TYPO3"
           composer show
+
+      - name: "Symlink root package to typo3conf/ext/"
+        if: "matrix.typo3-version == '^12.4'"
+        run: |
+          mkdir -p public/typo3conf/ext/
+          cd public/typo3conf/ext/
+          ln -s ../../../ migrations
+
       - name: "Install lowest dependencies with composer"
         if: "matrix.composer-dependencies == 'lowest'"
         run: |
@@ -122,6 +129,7 @@ jobs:
         run: |
           composer update --no-ansi --no-interaction --no-progress --with-dependencies
           composer show
+
       - name: "Start MySQL"
         run: "sudo /etc/init.d/mysql start"
       - name: "Run functional tests"
@@ -134,9 +142,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        typo3-version: ["^11.5", "^12.4"]
-        php-version: ["8.0", "8.1", "8.2", "8.3"]
+        typo3-version: ["^12.4", "^13.4"]
+        php-version: ["8.1", "8.2", "8.3"]
         composer-dependencies: ["lowest", "highest"]
         exclude:
-          - typo3-version: "^12.4"
-            php-version: "8.0"
+          - typo3-version: "^13.4"
+            php-version: "8.1"

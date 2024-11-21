@@ -15,7 +15,7 @@ use Symfony\Component\Console\Tester\CommandTester;
  */
 final class DoctrineCommandRunner
 {
-    public function __construct(private ContainerInterface $container)
+    public function __construct(private readonly ContainerInterface $container)
     {
     }
 

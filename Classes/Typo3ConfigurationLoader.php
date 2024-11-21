@@ -5,6 +5,7 @@ namespace KayStrobach\Migrations;
 use Doctrine\Migrations\Configuration\Configuration;
 use Doctrine\Migrations\Configuration\Migration\ConfigurationLoader;
 use Doctrine\Migrations\Metadata\Storage\TableMetadataStorageConfiguration;
+use KayStrobach\Migrations\Service\PlatformName;
 use Psr\Log\LoggerInterface;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Database\ConnectionPool;
@@ -21,9 +22,9 @@ class Typo3ConfigurationLoader implements ConfigurationLoader
 {
     public const MIGRATION_TABLE_NAME = 'doctrine_migrationstatus';
 
-    private LoggerInterface $logger;
+    private readonly LoggerInterface $logger;
 
-    public function __construct(private PackageManager $packageManager, private ConnectionPool $connectionPool, LogManager $logManager)
+    public function __construct(private readonly PackageManager $packageManager, private readonly ConnectionPool $connectionPool, LogManager $logManager)
     {
         $this->logger = $logManager->getLogger();
     }
@@ -44,7 +45,12 @@ class Typo3ConfigurationLoader implements ConfigurationLoader
         $configuration->setMetadataStorageConfiguration($metadataStorageConfiguration);
 
         $connection = $this->connectionPool->getConnectionByName(ConnectionPool::DEFAULT_CONNECTION_NAME);
-        $databasePlatformName = $connection->getDatabasePlatform()->getName();
+        $databasePlatform = $connection->getDatabasePlatform();
+        if (method_exists($databasePlatform, 'getName')) {
+            $databasePlatformName = $databasePlatform->getName();
+        } else {
+            $databasePlatformName = PlatformName::getNameForPlatform($databasePlatform);
+        }
 
         foreach ($this->packageManager->getActivePackages() as $package) {
             [$namespace, $path] = $this->getPackageMigrationNamespaceAndDirectory($package);
@@ -54,11 +60,11 @@ class Typo3ConfigurationLoader implements ConfigurationLoader
                 continue;
             }
 
-            $plattformPath = $path . ucfirst($databasePlatformName) . '/';
+            $plattformPath = $path . ucfirst((string)$databasePlatformName) . '/';
 
             if (is_dir($plattformPath)) {
                 $this->logger->debug(sprintf('Adding migrations for Package %s', $package->getPackageKey()));
-                $namespace .= ucfirst($databasePlatformName);
+                $namespace .= ucfirst((string)$databasePlatformName);
                 $configuration->addMigrationsDirectory($namespace, $plattformPath);
             }
         }
