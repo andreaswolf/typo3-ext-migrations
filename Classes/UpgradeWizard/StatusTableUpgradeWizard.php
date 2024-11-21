@@ -110,7 +110,7 @@ class StatusTableUpgradeWizard implements UpgradeWizardInterface
                         $queryBuilder->createNamedParameter($version, Connection::PARAM_STR)
                     )
                 );
-            $queryBuilder->execute();
+            $queryBuilder->executeStatement();
         }
 
         return true;
