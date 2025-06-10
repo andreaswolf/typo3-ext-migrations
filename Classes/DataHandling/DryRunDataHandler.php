@@ -8,12 +8,12 @@ use TYPO3\CMS\Core\DataHandling\DataHandler;
 
 class DryRunDataHandler extends DataHandler
 {
-    public function process_cmdmap()
+    public function process_cmdmap(): void
     {
         // no-op
     }
 
-    public function process_datamap()
+    public function process_datamap(): void
     {
         // no-op
     }
