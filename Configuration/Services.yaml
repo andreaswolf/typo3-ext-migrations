@@ -1,4 +1,12 @@
 services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  KayStrobach\Migrations\:
+    resource: '../Classes/*'
+
   KayStrobach\Migrations\Service\DoctrineService:
     arguments:
       - '@TYPO3\CMS\Core\Package\PackageManager'

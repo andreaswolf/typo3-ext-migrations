@@ -8,6 +8,7 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Package\PackageManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Install\Attribute\UpgradeWizard;
 use TYPO3\CMS\Install\Updates\DatabaseUpdatedPrerequisite;
 use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 
@@ -20,6 +21,7 @@ use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
  *
  * Requires the database:updateschema to have been aplied before (increases column size)!
  */
+#[UpgradeWizard('migration_statustable')]
 class StatusTableUpgradeWizard implements UpgradeWizardInterface
 {
     private string $tableName = 'doctrine_migrationstatus';
