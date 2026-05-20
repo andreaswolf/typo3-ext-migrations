@@ -2,11 +2,13 @@
 
 namespace KayStrobach\Migrations\UpgradeWizard;
 
+use KayStrobach\Migrations\Service\PlatformName;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Package\PackageManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Install\Attribute\UpgradeWizard;
 use TYPO3\CMS\Install\Updates\DatabaseUpdatedPrerequisite;
 use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 
@@ -19,6 +21,7 @@ use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
  *
  * Requires the database:updateschema to have been aplied before (increases column size)!
  */
+#[UpgradeWizard('migration_statustable')]
 class StatusTableUpgradeWizard implements UpgradeWizardInterface
 {
     private string $tableName = 'doctrine_migrationstatus';
@@ -57,7 +60,7 @@ class StatusTableUpgradeWizard implements UpgradeWizardInterface
     {
         $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
         $connection = $connectionPool->getConnectionByName(ConnectionPool::DEFAULT_CONNECTION_NAME);
-        $databasePlatformName = $connection->getDatabasePlatform()->getName();
+        $databasePlatformName = PlatformName::getNameForPlatform($connection->getDatabasePlatform());
 
         $packageManager = GeneralUtility::makeInstance(PackageManager::class);
         $mapping = [];
@@ -69,13 +72,13 @@ class StatusTableUpgradeWizard implements UpgradeWizardInterface
             $psr4Namespaces = get_object_vars($autoloadComposerDefinition->{'psr-4'});
             foreach ($psr4Namespaces as $namespace => $dir) {
                 if (strpos($namespace, '\\Migrations')) {
-                    $fullDir = $package->getPackagePath() . $dir . ucfirst($databasePlatformName);
+                    $fullDir = $package->getPackagePath() . $dir . ucfirst((string)$databasePlatformName);
                     $files = glob($fullDir . '/Version*.php');
                     if (! is_array($files)) {
                         continue;
                     }
                     foreach ($files as $file) {
-                        $className = rtrim($namespace, '\\') . '\\' . ucfirst($databasePlatformName)
+                        $className = rtrim($namespace, '\\') . '\\' . ucfirst((string)$databasePlatformName)
                             . '\\' . str_replace('.php', '', basename($file));
                         $legacyNumber = preg_replace('/[^0-9]/', '', basename($file));
                         $mapping[$legacyNumber] = $className;
@@ -109,7 +112,7 @@ class StatusTableUpgradeWizard implements UpgradeWizardInterface
                         $queryBuilder->createNamedParameter($version, Connection::PARAM_STR)
                     )
                 );
-            $queryBuilder->execute();
+            $queryBuilder->executeStatement();
         }
 
         return true;

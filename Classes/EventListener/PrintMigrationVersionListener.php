@@ -14,7 +14,7 @@ final class PrintMigrationVersionListener implements EventSubscriber
 {
     private ?LoggerInterface $logger = null;
 
-    public function __construct(private DependencyFactory $dependencyFactory)
+    public function __construct(private readonly DependencyFactory $dependencyFactory)
     {
     }
 

@@ -1,0 +1,24 @@
+{
+    "name": "a9f/typo3-migrations-rector",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Andreas Wolf",
+            "email": "dev@a-w.io"
+        }
+    ],
+    "require": {
+        "ergebnis/composer-normalize": "^2.28",
+        "ssch/typo3-rector": "^2.11"
+    },
+    "autoload": {
+        "psr-4": {
+            "a9f\\Typo3MigrationsRector\\": "src/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "ergebnis/composer-normalize": true
+        }
+    }
+}

@@ -33,7 +33,7 @@ abstract class AbstractDataHandlerMigration extends AbstractMigration
      */
     protected array $commandMap = [];
 
-    private DoctrineMigrationCoordinator $doctrineMigrationCoordinator;
+    private readonly DoctrineMigrationCoordinator $doctrineMigrationCoordinator;
 
     public function __construct(Connection $connection, LoggerInterface $logger)
     {
