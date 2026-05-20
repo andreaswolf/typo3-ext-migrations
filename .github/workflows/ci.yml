@@ -39,6 +39,8 @@ jobs:
           - "8.1"
           - "8.2"
           - "8.3"
+          - "8.4"
+          - "8.5"
         command:
           - "cs:check"
           - "php:static"
@@ -74,6 +76,8 @@ jobs:
           - "8.1"
           - "8.2"
           - "8.3"
+          - "8.4"
+          - "8.5"
         command:
           - "normalize"
 
@@ -143,7 +147,7 @@ jobs:
       fail-fast: false
       matrix:
         typo3-version: ["^12.4", "^13.4"]
-        php-version: ["8.1", "8.2", "8.3"]
+        php-version: ["8.1", "8.2", "8.3", "8.4", "8.5"]
         composer-dependencies: ["lowest", "highest"]
         exclude:
           - typo3-version: "^13.4"
